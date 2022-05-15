@@ -12,6 +12,14 @@ import algoritmo.Prim;
 import data.Grafo;
 import util.CarregarArquivo;
 import util.ErrorCodes;
+import util.GraphDrawer;
+
+/*
+ * Clase inicializadora de programa, sendo também resposável pela interface do programa, que permite a execução 
+ * de algoritmos em grafos, conforme a especificação do trabalho 2 da disciplina de Projeto e Análise de Algoritmos 
+ * 
+ * @author Eduardo Sakamoto
+ */
 
 	public class ProgramMenu {
 
@@ -24,9 +32,15 @@ import util.ErrorCodes;
 			grafo = null;
 			algoritmoGrafo = null;
 		}
-		
+
 		public Scanner scan() {
 			return scan;
+		}
+		
+		public int readInt() {
+			int n = scan().nextInt();
+			scan().nextLine();
+			return n;
 		}
 		
 		public static void clear() {
@@ -36,7 +50,7 @@ import util.ErrorCodes;
 		
 		public static void pressEnterToContinue(){ 
 		       
-			System.out.println("Pressione 'Enter' para continuar...");
+			System.out.println("\n\tPressione 'Enter' para continuar...");
 		    try{
 		    	System.in.read();
 		    }catch(Exception e){
@@ -46,7 +60,14 @@ import util.ErrorCodes;
 		
 		public static void printMessageAndClear(String msg) {
 			
-			System.out.println("\t" + msg);
+			System.out.println("\n\t" + msg);
+			pressEnterToContinue();
+			clear();
+		}
+		
+		public static void printErrorAndClear(String msg) {
+			
+			System.err.println("\n\t" + msg);
 			pressEnterToContinue();
 			clear();
 		}
@@ -58,12 +79,12 @@ import util.ErrorCodes;
 		
 		public void selecionarNumeroVertice() {
 			
-			System.out.print("\tNúmero de Vértice: ");
+			System.out.print("\n\tNúmero de Vértice de Origem: ");
 		}
 		
 		public void digitarCaminhoArquivoGrafo() {
 			
-			System.out.print("Caminho do Arquivo: ");
+			System.out.print("\n\tCaminho do Arquivo: ");
 		}
 		
 		public void tituloMenuPrincipal() {
@@ -71,7 +92,7 @@ import util.ErrorCodes;
 			System.out.println("\t============================================");
 			System.out.println("\t| Trabalho II (PAA) - Algoritmos em Grafos |");
 			System.out.println("\t============================================");
-			System.out.println("\n");
+			System.out.println();
 		}
 		
 		public void tituloMenuAlgoritmo() {
@@ -79,7 +100,7 @@ import util.ErrorCodes;
 			System.out.println("\t=================================");
 			System.out.println("\t| Opções de Algoritmo em Grafos |");
 			System.out.println("\t=================================");
-			System.out.println("\n");	
+			System.out.println();	
 		}
 		
 		public void opcaoMenuPrincipal() {
@@ -107,79 +128,89 @@ import util.ErrorCodes;
 			selecionarComando();
 			int comando, nroVertice;
 			try {
-				comando = scan().nextInt();
+				comando = readInt();
 			}catch(Exception e) {
 				comando = -1;
 			}
 			AlgoritmoGrafo g = null;
 			switch(comando) {
 				case 1:		try {
-								nroVertice = scan().nextInt();
+					selecionarNumeroVertice();			
+					nroVertice = scan().nextInt();
 								if(nroVertice >= grafo.getQtdVertice()) {
-									printMessageAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
+									printErrorAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
 								}else {
 									g = new BuscaProfundidade(grafo,nroVertice);
 								}
 							}catch(Exception e) {
-								printMessageAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
+								printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
 							}						
 				break;
 				case 2:		try {
+								selecionarNumeroVertice();
 								nroVertice = scan().nextInt();
 								if(nroVertice >= grafo.getQtdVertice()) {
-									printMessageAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
+									printErrorAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
 								}else {
 									g = new BuscaLargura(grafo,nroVertice);
 								}
 							}catch(Exception e) {
-								printMessageAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
+								printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
 							}
 				break;
 				case 3:		if(!grafo.isOrientado()) {
-								printMessageAndClear(ErrorCodes.INVALID_GRAPH_ORIENTATION_BELLMAN_FORD.getMessage());
+								printErrorAndClear(ErrorCodes.INVALID_GRAPH_ORIENTATION_BELLMAN_FORD.getMessage());
 							}else {
 								try {
-									nroVertice = scan().nextInt();
+									selecionarNumeroVertice();
+									nroVertice = readInt();
 									if(nroVertice >= grafo.getQtdVertice()) {
-										printMessageAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
+										printErrorAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
 									}else {
 										g = new BellmanFord(grafo,nroVertice);
 									}
 								}catch(Exception e) {
-									printMessageAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
+									printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
 								}	
 							}
 				break;
 				case 4:		g = new Kruskal(grafo);
 				break;
 				case 5:		try {
-								nroVertice = scan().nextInt();
+								selecionarNumeroVertice();
+								nroVertice = readInt();
 								if(nroVertice >= grafo.getQtdVertice()) {
-									printMessageAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
+									printErrorAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
 								}else {
 									g = new Prim(grafo,nroVertice);
 								}
 							}catch(Exception e) {
-								printMessageAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
+								printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
 							}
 				break;
-				case 0:		menuPrincipal();
+				case 0:		printMessageAndClear("");			
+							menuPrincipal();
 				break;
-				default:	printMessageAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
+				default:	printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
 							menuAlgoritmo();
 				break;
 			}
 			if(g != null) {
 				this.algoritmoGrafo = g;
 				try {
-					g.run();
-					g.imprimeResultado();
+					clear();
+					this.algoritmoGrafo.run();
+					printMessageAndClear("Algoritmo \'" + g.getTipoAlgoritmo() + "\' Executado com Sucesso!");
+					menuAlgoritmo();
 				}catch(Exception e) {
-					printMessageAndClear(ErrorCodes.ERROR_EXECUTION_ALGORITHM.getMessage());
+					printErrorAndClear(ErrorCodes.ERROR_EXECUTION_ALGORITHM.getMessage());
+					menuAlgoritmo();
 					// e.printStackTrace();
 				}
+			}else {
+				printErrorAndClear(ErrorCodes.ERROR_NO_GRAPH_LOADED.getMessage());
+				menuAlgoritmo();
 			}
-			menuAlgoritmo();
 		}
 		
 		public void menuPrincipal() {
@@ -189,7 +220,7 @@ import util.ErrorCodes;
 			selecionarComando();
 			int comando;
 			try {
-				comando = scan().nextInt();
+				comando = readInt();
 			} catch (Exception e) {
 				comando = -1;
 			}
@@ -198,26 +229,60 @@ import util.ErrorCodes;
 							String caminho = scan().nextLine();
 							CarregarArquivo ca = new CarregarArquivo(new File(caminho));
 							grafo = ca.converteArquivo();
-							String msg;
 							if(grafo == null) {
-								msg = ("\t" + ErrorCodes.INVALID_FILE_INPUT.getMessage());
+								printErrorAndClear(ErrorCodes.INVALID_FILE_INPUT.getMessage());
 							}else {
-								msg = "\tGrafo carregado com sucesso!";
+								printMessageAndClear("Grafo carregado com sucesso!");
 							}
-							printMessageAndClear(msg);
 				break;
-				case 2:		menuAlgoritmo();
+				case 2:		if(grafo == null) {
+								printErrorAndClear(ErrorCodes.ERROR_NO_GRAPH_LOADED.getMessage());
+							}else {
+								clear();
+								menuAlgoritmo();
+							}
 				break;
-				case 3:		// Desenhar Grafo
+				case 3:		if(grafo == null) {
+								printErrorAndClear(ErrorCodes.ERROR_NO_GRAPH_LOADED.getMessage());
+							}else {
+								GraphDrawer drawer;
+								switch(algoritmoGrafo.getTipoAlgoritmo()) {
+								case "Árvore Geradora Mínima - Kruskal":		
+									drawer = new GraphDrawer(grafo,((Kruskal) algoritmoGrafo).getArestaArvoreGeradora());
+								break;
+								case "Árvore Geradora Mínima - Prim":
+									drawer = new GraphDrawer(grafo,((Prim) algoritmoGrafo).getArestaArvoreGeradora());
+								break;
+								default:
+									drawer = new GraphDrawer(grafo);
+								break;
+								}
+								try {
+									drawer.drawGeneralGraph();
+								}catch(Exception e) {
+									// e.printStackTrace();
+									printErrorAndClear(ErrorCodes.ERROR_GRAPH_DRAW_FAILED.getMessage());
+								}
+							}
 				break;
-				case 0:		Runtime.getRuntime().exit(0);
+				case 0:		System.out.println("\n\tPrograma Finalizado com Sucesso!");
+							Runtime.getRuntime().exit(0);
 				break;
-				default:	printMessageAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
+				default:	printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
 				break;
 			}
 			menuPrincipal();
 			
 		}
+
+		/* TODO
+		 * Testar os algoritmos:
+		 * Mais testes para BuscaProfundidade, BuscaLargura, Bellman-Ford e Kruskal
+		 * DFS, BFS e Kruskal aparentemente OK --> Testar para grafos orientados
+		 * Arrumar Prim
+		 * Arrumar Interface
+		 * Desenhar grafo
+		 */
 		
 		public static void main(String[] strgs) {
 			

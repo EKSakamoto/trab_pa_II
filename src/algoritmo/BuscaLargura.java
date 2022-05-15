@@ -108,5 +108,6 @@ import data.Vertice;
 		public void run() {
 			// TODO Auto-generated method stub
 			BFS_visit();
+			imprimeResultado();
 		}
 	}

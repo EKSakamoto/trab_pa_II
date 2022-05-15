@@ -10,6 +10,11 @@ package data;
 			
 		}
 		
+		public Aresta(int verticeOrigem, int verticeDestino) {
+			this.verticeOrigem = verticeOrigem;
+			this.verticeDestino = verticeDestino;
+		}
+		
 		public Aresta(int verticeOrigem, int verticeDestino, int peso) {
 			this.verticeOrigem = verticeOrigem;
 			this.verticeDestino = verticeDestino;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import data.Aresta;
 import data.Grafo;
 import data.Vertice;
+import util.ErrorCodes;
 import util.SorterAresta_VerticeOrigem;
 
 	public class BellmanFord extends AlgoritmoGrafo{
@@ -30,17 +31,15 @@ import util.SorterAresta_VerticeOrigem;
 		public void defineListaAresta() {		
 			
 			for(Vertice v : this.getGrafo().getListaVertice()) {
-				for(Aresta a : v.getListaArestaIncidente()) {
-					listaAresta.add(a);
-				}
+				listaAresta.addAll(v.getListaArestaIncidente());
 			}
 			listaAresta.sort(new SorterAresta_VerticeOrigem());
 		}
 		
 		public void relax(Aresta a) {
 			
-			System.out.println((d[a.getVerticeOrigem()] + a.getPeso()));
-			if(d[a.getVerticeDestino()] > (d[a.getVerticeOrigem()] + a.getPeso())) {
+			if(d[a.getVerticeOrigem()] != Integer.MAX_VALUE && 
+			   d[a.getVerticeDestino()] > (d[a.getVerticeOrigem()] + a.getPeso())) {
 				d[a.getVerticeDestino()] = d[a.getVerticeOrigem()] + a.getPeso();
 				predecessor[a.getVerticeDestino()] = a.getVerticeOrigem();
 			}
@@ -59,14 +58,16 @@ import util.SorterAresta_VerticeOrigem;
 		public boolean bellmanFord() {
 			
 			inicializaOrigem();
-			System.out.println("Vértice Origem = " + verticeOrigem.getNroVertice());
-			for(int i = 0 ; i < this.getGrafo().getQtdVertice() - 1 ; i++) {
+			for(int i = 0 ; i < this.getGrafo().getQtdVertice() ; i++) {
 				for(Aresta a : listaAresta) {
-					System.out.println("Aresta " + a);
 					relax(a);
 				}
 			}
+			for(Aresta a : this.getGrafo().getListaAresta()) {
+				if(d[a.getVerticeDestino()] > d[a.getVerticeOrigem()] + a.getPeso())	return false;
+			}
 			
+			return true;
 			/*
 			 * figura1: Origem Vértice 1
 			 * Destino: 0 Dist.: -3 Caminho: 1 - 3 - 0
@@ -87,45 +88,50 @@ import util.SorterAresta_VerticeOrigem;
 			 * Destino: 7 Dist.: 0 Caminho: 0 - 4 - 3 - 5 - 7
 			 */
 			
-			for(Vertice v : this.getGrafo().getListaVertice()) {
-				System.out.println("Vertice " + v.getNroVertice() + " -> " + "Dist. = " + d[v.getNroVertice()] + " | " + "Pred. = " + predecessor[v.getNroVertice()] 
-//						+ " | Caminho = " + defineCaminho(v.getNroVertice())
-						);
-			}
-			// System.out.println(gerarResposta());
-			
-			
-			for(Aresta a : this.getGrafo().getListaAresta()) {
-				if(d[a.getVerticeOrigem()] > d[a.getVerticeDestino()] + a.getPeso())	return false;
-			}
-			
-			return true;
 		}
 		
 		public String defineCaminho(int nroVertice) {
 			
+			if(predecessor[nroVertice] == -1 &&
+			   nroVertice != verticeOrigem.getNroVertice()) {
+				return "Não Existe Caminho p/ Vertice " + nroVertice;
+			}else {
+				return constroiCaminho(nroVertice);
+			}
+		}
+		
+		public String constroiCaminho(int nroVertice) {
+			
 			String caminho = String.valueOf(nroVertice);
 			if(predecessor[nroVertice] == -1)		return caminho;
-			return defineCaminho(predecessor[nroVertice]) + " - " + caminho;
+			return constroiCaminho(predecessor[nroVertice]) + " - " + caminho;
 		}
 		
 		@Override
 		public void imprimeResultado() {
 
-			StringBuilder str = new StringBuilder();
-			str.append("origem: ").append(verticeOrigem.getNroVertice()).append("\n");
-			for(Vertice v : this.getGrafo().getListaVertice()) {
-				str.append("destino: ").append(v.getNroVertice()).append(" ")
-				   .append("dist.: ").append(d[v.getNroVertice()]).append(" ")
-				   .append("caminho: ").append(defineCaminho(v.getNroVertice()));
+			try {
+				StringBuilder str = new StringBuilder();
+				str.append("origem: ").append(verticeOrigem.getNroVertice()).append("\n");
+				for(Vertice v : this.getGrafo().getListaVertice()) {
+					str.append("destino: ").append(v.getNroVertice()).append("\t")
+					   .append("dist.: ").append(d[v.getNroVertice()]).append("\t")
+					   .append("caminho: ").append(defineCaminho(v.getNroVertice()))
+					   .append("\n");
+				}
+				System.out.println(str.toString());
+			}catch(Exception e) {
+				// e.printStackTrace();
 			}
-			System.out.println(str.toString());
 		}
 		
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			bellmanFord();
+			if(bellmanFord())	imprimeResultado();
+			else {
+				System.err.println(ErrorCodes.NEGATIVE_CYCLE_BELLMAN_FORD.getMessage());
+			}
 		}
 		
 	}

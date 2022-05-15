@@ -2,6 +2,12 @@ package algoritmo;
 
 import data.Grafo;
 
+/*
+ * Classe genérica referente aos tipos de algoritmos em grafos
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class AlgoritmoGrafo implements Runnable{
 
 		private Grafo grafo;

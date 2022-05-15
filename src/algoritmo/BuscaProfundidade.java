@@ -6,6 +6,12 @@ import data.Cor;
 import data.Grafo;
 import data.Vertice;
 
+/*
+ * Classe que implementa o algoritmo "Busca em Profundidade (DFS)"
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class BuscaProfundidade extends AlgoritmoGrafo{
 
 		private Vertice verticeOrigem;
@@ -17,6 +23,7 @@ import data.Vertice;
 		}
 		
 		public BuscaProfundidade(Grafo grafo, int nroVerticeOrigem) {
+			
 			super(grafo,"Busca em Profundidade (DFS)");
 			if(nroVerticeOrigem >= grafo.getQtdVertice()) {
 				// ERROR CODE -> INPUT >= VERTEX QUANTITY
@@ -51,13 +58,60 @@ import data.Vertice;
 			this.cor = cor;
 		}
 
+		/*
+		 * Método que inicializa as estruturas relevantes para execução do algoritmo
+		 * Pré-condição: Vértice de origem pré-definido válido
+		 * Pós-condição: Nenhum
+		 */
 		public void inicializaDFS() {
 			
-			for(Vertice v : this.getGrafo().getListaVertice()) {
-				cor[v.getNroVertice()] = Cor.BRANCO;
+			for(int i = 0 ; i < this.getGrafo().getQtdVertice() ; i++) {
+				cor[i] = Cor.BRANCO;
 			}
+			ordemVertice.add(verticeOrigem.getNroVertice());
 		}
 		
+		/*
+		public ArrayList<Vertice> gerarListaVertice_Origem(){
+			
+			ArrayList<Vertice> list = this.getGrafo().getListaVertice();
+			list.remove(verticeOrigem);
+			list.add(0, verticeOrigem);
+			return list;
+		}
+		*/
+		
+		/*
+		 * Método que realiza a execução do algoritmo "Busca em Profundidade (DFS)"
+		 * Pré-condição: Vértice de origem válido
+		 * Pós-condição: Ordem de visita de vértices definida
+		 */
+		public void DFS() {
+			
+			try {
+				inicializaDFS();
+				DFS_visit(verticeOrigem);
+				
+				/* Implementação considerada caso fosse percorrer todos os vértices, independente do grafo ser conexo ou não	
+				ArrayList<Vertice> list = gerarListaVertice_Origem();
+				for(Vertice u : list) {
+					if(cor[u.getNroVertice()] == Cor.BRANCO) {
+						ordemVertice.add(u.getNroVertice());
+						DFS_visit(u);
+					}
+				}
+				*/
+			}catch(Exception e) {
+				e.printStackTrace();
+				// ERROR CODE?
+			}
+		}
+	
+		/*
+		 * Método que realiza a visita recursiva dos vértices, conforme o algoritmo DFS
+		 * Pré-condição: Vértice de parâmetro válido
+		 * Pós-condição: Nenhum
+		 */
 		public void DFS_visit(Vertice v) {
 			
 			try {
@@ -75,31 +129,11 @@ import data.Vertice;
 			}
 		}
 		
-		public ArrayList<Vertice> gerarListaVertice_Origem(){
-			
-			ArrayList<Vertice> list = this.getGrafo().getListaVertice();
-			list.remove(verticeOrigem);
-			list.add(0, verticeOrigem);
-			return list;
-		}
-		
-		public void DFS() {
-			
-			try {
-				inicializaDFS();
-				ArrayList<Vertice> list = gerarListaVertice_Origem();
-				for(Vertice u : list) {
-					if(cor[u.getNroVertice()] == Cor.BRANCO) {
-						ordemVertice.add(u.getNroVertice());
-						DFS_visit(u);
-					}
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-				// ERROR CODE?
-			}
-		}
-	
+		/*
+		 * Método que realiza a impressão do resultado para o algoritmo DFS, conforme instruído na especificação do trabalho
+		 * Pré-condição: Execução de algoritmo já realizada
+		 * Pós-condiçao: Impressão de resultado no console
+		 */
 		@Override
 		public void imprimeResultado() {
 		
@@ -115,5 +149,6 @@ import data.Vertice;
 		public void run() {
 			// TODO Auto-generated method stub
 			DFS();
+			imprimeResultado();
 		}
 	}

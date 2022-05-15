@@ -1,6 +1,7 @@
 package algoritmo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import data.Aresta;
 import data.Grafo;
@@ -53,13 +54,6 @@ import data.Vertice;
 			this.pesoTotal = pesoTotal;
 		}
 		
-		public Vertice extraiMinimo_FilaPrioridade() {
-			
-			Vertice v = vertice_ausenteArvore.get(0);
-			vertice_ausenteArvore.remove(v);
-			return v;
-		}
-		
 		public void inicializaOrigem() {
 			
 			for(Vertice v : this.getGrafo().getListaVertice()) {
@@ -68,24 +62,39 @@ import data.Vertice;
 			}
 			key[verticeOrigem.getNroVertice()] = 0;
 			predecessor[verticeOrigem.getNroVertice()] = -1;
-		
 			vertice_ausenteArvore.remove(verticeOrigem);
 			vertice_ausenteArvore.add(0,verticeOrigem);
+		}
+		
+		public Vertice extraiVertice_MinimoKey(ArrayList<Vertice> list) {
+			
+			int menor = Integer.MAX_VALUE;
+			Vertice verticeMenor = null;
+			for(Vertice v : list) {
+				if(key[v.getNroVertice()] < menor) {
+					menor = key[v.getNroVertice()];
+					verticeMenor = v;
+				}
+			}
+			return verticeMenor;
 		}
 		
 		public void arvoreGeradoraMinima_Prim() {
 			
 			inicializaOrigem();
 			while(!vertice_ausenteArvore.isEmpty()) {
-				Vertice u = extraiMinimo_FilaPrioridade();
+				System.out.println(Arrays.toString(key));
+				Vertice u = extraiVertice_MinimoKey(vertice_ausenteArvore);
+				vertice_ausenteArvore.remove(u);
 				for(Vertice adj : this.getGrafo().getMapaAdjacencia().get(u)) {
 					Aresta a = this.getGrafo().getArestaEspecifica(u,adj);
-					if(vertice_ausenteArvore.contains(adj) &&
+					if(!vertice_ausenteArvore.contains(adj) &&
 					   a.getPeso() < key[adj.getNroVertice()]) {
 						predecessor[adj.getNroVertice()] = u.getNroVertice();
 						key[adj.getNroVertice()] = a.getPeso();
-						arestaArvoreGeradora.add(a);
-					}
+//						arestaArvoreGeradora.add(a);
+					// Verificar algoritmo
+					}	
 				}
 			}
 			calculaPesoTotal();
@@ -102,9 +111,9 @@ import data.Vertice;
 		public void imprimeResultado() {
 
 			StringBuilder str = new StringBuilder();
-			str.append("vértice inicial: ").append(this.getVerticeOrigem().getNroVertice())
-			   .append("peso total: ").append(this.getPesoTotal())
-			   .append("\n").append("arestas: ");
+			str.append("vértice inicial: ").append(this.getVerticeOrigem().getNroVertice()).append("\n")
+			   .append("peso total: ").append(this.getPesoTotal()).append("\n")
+			   .append("arestas: ");
 			for(Aresta a : this.getArestaArvoreGeradora()) {
 				str.append(a.uvRepresentation()).append(" ");
 			}
@@ -116,6 +125,7 @@ import data.Vertice;
 		public void run() {
 			// TODO Auto-generated method stub
 			arvoreGeradoraMinima_Prim();
+			imprimeResultado();
 		}
 		
 	}

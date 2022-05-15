@@ -8,12 +8,14 @@ import util.SorterVertice_NroVertice;
 
 	public class Grafo {
 
+		private String nomeGrafo;
 		private int qtdVertice;
 		private boolean orientado;
 		private ArrayList<Vertice> listaVertice = new ArrayList<>();
 		private ArrayList<Aresta> listaAresta = new ArrayList<>();
 		private LinkedHashMap<Vertice,ArrayList<Vertice>> mapaAdjacencia;
 		private LinkedHashMap<Vertice,ArrayList<Aresta>> mapaIncidencia;
+		
 		public Grafo() {
 			
 		}
@@ -29,6 +31,26 @@ import util.SorterVertice_NroVertice;
 			defineMapaIncidencia();
 		}
 		
+		public Grafo(String nomeGrafo, boolean orientado, int qtdVertice, ArrayList<Aresta> listaAresta) {
+			mapaAdjacencia = new LinkedHashMap<>();
+			mapaIncidencia = new LinkedHashMap<>();
+			this.nomeGrafo = nomeGrafo;
+			this.orientado = orientado;
+			this.listaAresta = listaAresta;
+			this.qtdVertice = qtdVertice;
+			defineVertice();
+			defineMapaAdjacencia();
+			defineMapaIncidencia();
+		}
+			
+		public String getNomeGrafo() {
+			return nomeGrafo;
+		}
+
+		public void setNomeGrafo(String nomeGrafo) {
+			this.nomeGrafo = nomeGrafo;
+		}
+
 		public int getQtdVertice() {
 			return qtdVertice;
 		}

@@ -63,10 +63,6 @@ import util.SorterAresta_Peso;
 			criaConjuntoVertice();
 			ArrayList<Aresta> listaPeso = this.getGrafo().getListaAresta();
 			listaPeso.sort(new SorterAresta_Peso());
-			System.out.println("Aresta Ordenada:");
-			for(Aresta a : listaPeso) {
-				System.out.print(a.getPeso() + " | ");
-			}
 			for(Aresta a : listaPeso) {
 				ConjuntoVertice u, v;
 				u = procuraConjuntoVertice(a.getVerticeOrigem());
@@ -106,5 +102,7 @@ import util.SorterAresta_Peso;
 		public void run() {
 			// TODO Auto-generated method stub
 			arvoreGeradoraMinima_Kruskal();
+			imprimeResultado();
 		}
+		
 	}

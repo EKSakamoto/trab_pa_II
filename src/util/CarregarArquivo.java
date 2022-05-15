@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-import algoritmo.Prim;
+import algoritmo.BuscaProfundidade;
 import data.Aresta;
 import data.Grafo;
 
@@ -55,9 +55,8 @@ import data.Grafo;
 						peso = Integer.valueOf(fileLine.substring(fileLine.indexOf(":")+1));
 						listaAresta.add(new Aresta(origem,destino,peso));
 					}
-					Grafo grafo = new Grafo(orientado,qtdVertice,listaAresta);
-					
-					return grafo;
+					br.close();
+					return new Grafo(file.getName(),orientado,qtdVertice,listaAresta);
 				}catch(Exception e) {
 					e.printStackTrace();
 					return null;
@@ -68,51 +67,42 @@ import data.Grafo;
 		public static void main(String[] strgs) {
 			
 			CarregarArquivo a = new CarregarArquivo();
-			a.setFile(new File("C:\\Users\\Eduar\\paa\\TrabalhoII_PAA\\src\\util\\testeKruskal"));
+			a.setFile(new File("C:\\Users\\Eduar\\paa\\TrabalhoII_PAA\\src\\util\\figura2"));
 			Grafo g = a.converteArquivo();
+			
+			BuscaProfundidade b = new BuscaProfundidade(g,0);
+			b.run();
+			GraphDrawer drawer = new GraphDrawer(g);
+			drawer.drawGeneralGraph();
+			
+			/*
+			System.out.println(g.getNomeGrafo());
+			Kruskal k = new Kruskal(g);
+			k.run();
+			GraphDrawer drawer = new GraphDrawer(g,k.getArestaArvoreGeradora());
+			drawer.drawGeneralGraph();
+			*/
+			/*
 			System.out.println(g.getGrafoInfo());
 			
 			Prim p = new Prim(g,2);
 			p.run();
-			StringBuilder str = new StringBuilder();
-			int peso = 0;
-			for(Aresta aresta : p.getArestaArvoreGeradora()) {
-				str.append("(").append((char) (aresta.getVerticeOrigem() + 97))
-				   .append(",")
-				   .append((char) (aresta.getVerticeDestino() + 97)).append(")")
-				   .append(" | ");
-				peso += aresta.getPeso();
-			}
-			System.out.println("Vértice Inicial = " + p.getVerticeOrigem().getNroVertice());
-			System.out.println("Peso Total = " + peso);
-			System.out.println("Arestas = " + str.toString());
-			
-			/*
-			Kruskal k = new Kruskal(g);
-			k.run();
-			StringBuilder str = new StringBuilder();
-			int peso = 0;
-			for(Aresta aresta : k.getArestaArvoreGeradora()) {
-				str.append("(").append(aresta.getVerticeOrigem())
-				   .append(",")
-				   .append(aresta.getVerticeDestino()).append(")")
-				   .append(" | ");
-				peso += aresta.getPeso();
-			}
-			System.out.println("Peso Total = " + peso);
-			System.out.println("Arestas = " + str.toString());
+			System.out.println("Prim = ");		p.imprimeResultado();
 			*/
-			/*
-			 * BellmanFord bf = new BellmanFord(g,1);
-			 * bf.run();
-			 */
 			/*
 			BuscaProfundidade dfs = new BuscaProfundidade(g,0);
 			BuscaLargura bfs = new BuscaLargura(g,0);
+			BellmanFord b = new BellmanFord(g,0);
+			Kruskal k = new Kruskal(g);
 			dfs.run();
 			bfs.run();
-			System.out.println("Profundidade = " + dfs.getOrdemVertice());
-			System.out.println("Largura = " + bfs.getOrdemVertice());
+			b.run();
+			k.run();
+			
+			System.out.println("Profundidade = ");	dfs.imprimeResultado();
+			System.out.println("Largura = ");		bfs.imprimeResultado();
+			System.out.println("BellmanFord = ");	b.imprimeResultado();
+			System.out.println("Kruskal = ");		k.imprimeResultado();
 			*/
 		}
 	}
