@@ -59,7 +59,7 @@ import data.Vertice;
 		}
 
 		/*
-		 * Método que inicializa as estruturas relevantes para execução do algoritmo
+		 * Método que inicializa as estruturas essenciais para execução do algoritmo
 		 * Pré-condição: Vértice de origem pré-definido válido
 		 * Pós-condição: Nenhum
 		 */

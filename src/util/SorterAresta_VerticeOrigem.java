@@ -4,6 +4,12 @@ import java.util.Comparator;
 
 import data.Aresta;
 
+/*
+ * Classe auxiliar de ordenação de lista de arestas, com base nos números de vértice de origem das arestas
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class SorterAresta_VerticeOrigem implements Comparator<Aresta>{
 
 		@Override

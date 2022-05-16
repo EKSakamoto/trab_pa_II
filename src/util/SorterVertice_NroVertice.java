@@ -4,6 +4,12 @@ import java.util.Comparator;
 
 import data.Vertice;
 
+/*
+ * Classe auxiliar de ordenação de lista de vértices, com base nos números dos vértices
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class SorterVertice_NroVertice implements Comparator<Vertice>{
 	
 		@Override

@@ -6,6 +6,12 @@ import java.util.LinkedHashMap;
 import util.SorterAresta_VerticeOrigem;
 import util.SorterVertice_NroVertice;
 
+/*
+ * Classe que define a estrutura de um grafo
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class Grafo {
 
 		private String nomeGrafo;
@@ -99,9 +105,13 @@ import util.SorterVertice_NroVertice;
 			this.mapaIncidencia = mapaIncidencia;
 		}
 
+		/*
+		 * Método que define a lista de vértices do grafo
+		 * Pré-condição: Lista de arestas do grafo não nulo
+		 * Pós-condição: Definição de lista ordenada de vértices
+		 */
 		public void defineVertice() {
 			
-			// TODO Realizar definição, dependendo da orientação do grafo
 			listaAresta.sort(new SorterAresta_VerticeOrigem());
 			ArrayList<Vertice> list = new ArrayList<>();
 			for(Aresta a : listaAresta) {
@@ -121,6 +131,11 @@ import util.SorterVertice_NroVertice;
 			this.listaVertice = list;
 		}
 		
+		/*
+		 * Método que verifica a presença de um determinado vértice numa lista de vértices
+		 * Pré-condição: Vértice e lista de vértices não nulos
+		 * Pós-condição: Booleano de presença do vértice na lista
+		 */
 		public boolean containsVertice(ArrayList<Vertice> list, Vertice target) {
 			
 			for(Vertice v : list) {
@@ -129,6 +144,11 @@ import util.SorterVertice_NroVertice;
 			return false;
 		}
 		
+		/*
+		 * Método que define o mapa de vértices adjacentes para cada vértice do grafo
+		 * Pré-condição: Lista de vértices não nulo
+		 * Pós-condição: Definição de mapa de adjacência
+		 */
 		public void defineMapaAdjacencia() {
 			
 			for(Vertice v : listaVertice) {
@@ -136,6 +156,11 @@ import util.SorterVertice_NroVertice;
 			}
 		}
 		
+		/*
+		 * Método que define o mapa de arestas incidentes para cada vértice do grafo
+		 * Pré-condição: Lista de vértices não nulo
+		 * Pós-condição: Definição de mapa de incidência
+		 */
 		public void defineMapaIncidencia() {
 			
 			for(Vertice v : listaVertice) {
@@ -143,6 +168,11 @@ import util.SorterVertice_NroVertice;
 			}
 		}
 		
+		/*
+		 * Método que busca por um determinado vértice no grafo
+		 * Pré-condição: Lista de vértices não nulo
+		 * Pós-condição: Resultado de busca de um determinado vértice
+		 */
 		public Vertice getVerticeEspecifico(int nroVertice) {
 			
 			for(Vertice v : this.getListaVertice()) {
@@ -151,6 +181,11 @@ import util.SorterVertice_NroVertice;
 			return null;
 		}
 		
+		/*
+		 * Método que busca por uma determinada aresta no grafo
+		 * Pré-condição: Vértice u, v e mapa de incidência não nulos
+		 * Pós-condição: Resultado de busca de uma determinada aresta
+		 */
 		public Aresta getArestaEspecifica(Vertice u, Vertice v) {
 			
 			for(Aresta a : this.getMapaIncidencia().get(u)) {
@@ -162,6 +197,11 @@ import util.SorterVertice_NroVertice;
 			return null;
 		}
 		
+		/*
+		 * Método auxiliar que realiza a impressão das informações do grafo
+		 * Pré-condição: Grafo não nulo
+		 * Pós-condição: Impressão de informações do grafo
+		 */
 		public String getGrafoInfo() {
 			
 			StringBuilder str = new StringBuilder();
@@ -171,6 +211,7 @@ import util.SorterVertice_NroVertice;
 			str.append("\n")
 			   .append("Quantidade de Vértices = ")
 			   .append(this.getQtdVertice());
+			str.append("\n============================================");
 			for(Vertice v : this.getListaVertice()) {
 				str.append("\nVertice ").append(v.getNroVertice()).append("\n");
 				str.append("Arestas Incidentes = ");
@@ -181,6 +222,7 @@ import util.SorterVertice_NroVertice;
 					   .append(":").append(a.getPeso())
 					   .append(" | ");
 				}
+				str.append("============================================");
 			}
 			return str.toString();
 		}

@@ -42,12 +42,22 @@ import util.GraphDrawer;
 			scan().nextLine();
 			return n;
 		}
-		
+	
+		/*
+		 * Método que realiza a 'limpeza' do console
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public static void clear() {
 			
 			System.out.println(new String(new char[30]).replace("\0", "\r\n"));
 		}
 		
+		/*
+		 * Método que realiza a requisição de interação com o usuário
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Interação com usuário
+		 */
 		public static void pressEnterToContinue(){ 
 		       
 			System.out.println("\n\tPressione 'Enter' para continuar...");
@@ -58,6 +68,11 @@ import util.GraphDrawer;
 		    }  
 		 }
 		
+		/*
+		 * Método que realiza a impressão de uma mensagem, limpando o console em seguida
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public static void printMessageAndClear(String msg) {
 			
 			System.out.println("\n\t" + msg);
@@ -65,6 +80,11 @@ import util.GraphDrawer;
 			clear();
 		}
 		
+		/*
+		 * Método que realiza a impressão de uma mensagem (como erro), limpando o console em seguida
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public static void printErrorAndClear(String msg) {
 			
 			System.err.println("\n\t" + msg);
@@ -72,21 +92,41 @@ import util.GraphDrawer;
 			clear();
 		}
 		
+		/*
+		 * Método que reliza a impressão de label voltado para um comando no menu
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public void selecionarComando() {
 			
 			System.out.print("\n\tComando: ");
 		}
 		
+		/*
+		 * Método que realiza a impressão de label voltado para um número de vértice de origem no menu
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public void selecionarNumeroVertice() {
 			
 			System.out.print("\n\tNúmero de Vértice de Origem: ");
 		}
 		
+		/*
+		 * Método que realiza a impressão de label voltado para um caminho de arquivo no menu
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public void digitarCaminhoArquivoGrafo() {
 			
 			System.out.print("\n\tCaminho do Arquivo: ");
 		}
 		
+		/*
+		 * Método que realiza a impressão do título do menu principal
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public void tituloMenuPrincipal() {
 			
 			System.out.println("\t============================================");
@@ -95,6 +135,11 @@ import util.GraphDrawer;
 			System.out.println();
 		}
 		
+		/*
+		 * Metodo que realiza a impressão do título do menu de algoritmo
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public void tituloMenuAlgoritmo() {
 			
 			System.out.println("\t=================================");
@@ -103,6 +148,11 @@ import util.GraphDrawer;
 			System.out.println();	
 		}
 		
+		/*
+		 * Método que realiza a impressão de opções de comando do menu principal
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public void opcaoMenuPrincipal() {
 			
 			System.out.println("\t\t1 - Carregar Grafo");
@@ -111,6 +161,11 @@ import util.GraphDrawer;
 			System.out.println("\t\t0 - Finalizar Programa");
 		}
 		
+		/*
+		 * Método que realiza a impressão de opções de comando do menu de algoritmo
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public void opcaoMenuAlgoritmo() {
 			
 			System.out.println("\t\t1 - Busca em Profundidade (DFS)");
@@ -121,6 +176,11 @@ import util.GraphDrawer;
 			System.out.println("\t\t0 - Voltar");
 		}
 		
+		/*
+		 * Método que realiza as interações presentes no menu de algoritmo
+		 * Pré-condição: Grafo não nulo
+		 * Pós-condição: Nenhuma
+		 */
 		public void menuAlgoritmo() {
 			
 			tituloMenuAlgoritmo();
@@ -213,6 +273,11 @@ import util.GraphDrawer;
 			}
 		}
 		
+		/*
+		 * Método que realiza as interações presentes no menu principal
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public void menuPrincipal() {
 			
 			tituloMenuPrincipal();
@@ -258,7 +323,9 @@ import util.GraphDrawer;
 								break;
 								}
 								try {
+									clear();
 									drawer.drawGeneralGraph();
+									printMessageAndClear("");
 								}catch(Exception e) {
 									// e.printStackTrace();
 									printErrorAndClear(ErrorCodes.ERROR_GRAPH_DRAW_FAILED.getMessage());
@@ -276,14 +343,18 @@ import util.GraphDrawer;
 		}
 
 		/* TODO
-		 * Testar os algoritmos:
-		 * Mais testes para BuscaProfundidade, BuscaLargura, Bellman-Ford e Kruskal
-		 * DFS, BFS e Kruskal aparentemente OK --> Testar para grafos orientados
+		 * Testar os algoritmos				-> Falta o Prim e testes básicos para outros algoritmos
+		 * DFS, BFS e Kruskal aparentemente -> OK: Testar para grafos orientados
 		 * Arrumar Prim
-		 * Arrumar Interface
-		 * Desenhar grafo
+		 * Arrumar Interface				
+		 * Desenhar grafo 					-> OK
 		 */
 		
+		/*
+		 * Método main, responsável pela inicialização do programa principal
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Nenhuma
+		 */
 		public static void main(String[] strgs) {
 			
 			ProgramMenu p = new ProgramMenu();

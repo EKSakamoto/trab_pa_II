@@ -40,7 +40,7 @@ import data.Grafo;
 		}
 		
 		public void imprimeResultado() {
-			// Relizar a impressão dos resultados para cada classe de algoritmo distinto
+			
 		}
 		
 		@Override

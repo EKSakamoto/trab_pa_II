@@ -1,5 +1,11 @@
 package data;
 
+/*
+ * Classe que define a estrutura de uma aresta
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class Aresta {
 
 		private int verticeOrigem;
@@ -45,12 +51,22 @@ package data;
 			this.peso = peso;
 		}
 
+		/*
+		 * Método de igualdade com uma aresta
+		 * Pré-condição: Aresta nao nula
+		 * Pós-condição: Resultado de comparação
+		 */
 		public boolean equals(Aresta a) {
 			return (this.verticeOrigem == a.getVerticeOrigem() &&
 					this.verticeDestino == a.getVerticeDestino() &&
 					this.peso == a.getPeso());
 		}
 
+		/*
+		 * Método auxiliar para representação de aresta no padrão (u,v)
+		 * Pré-condição: Nenhum
+		 * Pós-condição: Representação (u,v)
+		 */
 		public String uvRepresentation() {
 			
 			return "(" + this.getVerticeOrigem() + "," 

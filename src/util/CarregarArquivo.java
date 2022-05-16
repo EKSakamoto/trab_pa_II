@@ -5,9 +5,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-import algoritmo.BuscaProfundidade;
+import algoritmo.Kruskal;
 import data.Aresta;
 import data.Grafo;
+
+/*
+ * Classe responsável pela carga de um grafo, a partir de um arquivo txt
+ * 
+ * @author Eduardo Sakamoto
+ */
 
 	public class CarregarArquivo {
 
@@ -29,6 +35,11 @@ import data.Grafo;
 			this.file = file;
 		}
 
+		/*
+		 * Método que realiza a conversão de um arquivo txt numa estrutura de grafo
+		 * Pré-condição: Arquivo não nulo
+		 * Pós-condição: Resultado de conversão de arquivo
+		 */
 		public Grafo converteArquivo() {
 			
 			if(!file.exists()) {
@@ -67,13 +78,20 @@ import data.Grafo;
 		public static void main(String[] strgs) {
 			
 			CarregarArquivo a = new CarregarArquivo();
-			a.setFile(new File("C:\\Users\\Eduar\\paa\\TrabalhoII_PAA\\src\\util\\figura2"));
+			a.setFile(new File("C:\\Users\\Eduar\\paa\\TrabalhoII_PAA\\src\\util\\testeKruskal"));
 			Grafo g = a.converteArquivo();
 			
-			BuscaProfundidade b = new BuscaProfundidade(g,0);
+			/*
+			BuscaProfundidade b = new BuscaProfundidade(g,8);
 			b.run();
 			GraphDrawer drawer = new GraphDrawer(g);
 			drawer.drawGeneralGraph();
+			*/
+			Kruskal k = new Kruskal(g);
+			k.run();
+			GraphDrawer drawer = new GraphDrawer(g,k.getArestaArvoreGeradora());
+			drawer.drawGeneralGraph();
+			
 			
 			/*
 			System.out.println(g.getNomeGrafo());

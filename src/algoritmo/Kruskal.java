@@ -8,6 +8,12 @@ import data.Grafo;
 import data.Vertice;
 import util.SorterAresta_Peso;
 
+/*
+ * Classe que implementa o algoritmo "Árvore Geradora Mínima - Kruskal"
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class Kruskal extends AlgoritmoGrafo{
 
 		private ArrayList<Aresta> arestaArvoreGeradora;
@@ -40,6 +46,11 @@ import util.SorterAresta_Peso;
 			this.pesoTotal = pesoTotal;
 		}
 
+		/*
+		 * Método que realiza a busca por um conjunto de vértice(s), a partir de um determinado vértice
+		 * Pré-condição: Número de vértice deve estar contido na lista de vértices do grafo
+		 * Pós-condição: Definição do conjunto de vértice requerido
+		 */
 		public ConjuntoVertice procuraConjuntoVertice(int nroVertice) {
 			
 			for(ConjuntoVertice conjunto : listaConjuntoVertice) {
@@ -50,6 +61,11 @@ import util.SorterAresta_Peso;
 			return null;
 		}
 		
+		/*
+		 * Método de inicialização que cria a lista de conjuntos de vértices para cada vértice do grafo
+		 * Pré-condição: Grafo não nulo
+		 * Pós-condição: Definição de lista de conjuntos de vértices
+		 */
 		public void criaConjuntoVertice() {
 			
 			listaConjuntoVertice = new ArrayList<>();
@@ -58,6 +74,11 @@ import util.SorterAresta_Peso;
 			}
 		}
 		
+		/*
+		 * Método que realiza a execução do algoritmo "Árvore Geradora Mínima - Kruskal"
+		 * Pré-condição: Grafo não nulo
+		 * Pós-condição: Definição da lista de arestas de árvore geradora mínima
+		 */
 		public void arvoreGeradoraMinima_Kruskal() {
 			
 			criaConjuntoVertice();
@@ -78,6 +99,11 @@ import util.SorterAresta_Peso;
 			calculaPesoTotal();
 		}
 		
+		/*
+		 * Método que realiza o cálculo do peso total da árvore geradora mínima
+		 * Pré-condição: Lista de arestas de árvore geradora mínima não nula
+		 * Pós-condição: Atribuição do peso total da árvore
+		 */
 		public void calculaPesoTotal() {
 			
 			for(Aresta a : arestaArvoreGeradora) {
@@ -85,6 +111,11 @@ import util.SorterAresta_Peso;
 			}
 		}
 		
+		/*
+		 * Método que realiza a impressão do resultado para o algoritmo Kruskal, conforme instruído na especificação do trabalho
+		 * Pré-condição: Execução de algoritmo já realizada
+		 * Pós-condiçao: Impressão de resultado no console
+		 */
 		@Override
 		public void imprimeResultado() {
 

@@ -6,6 +6,12 @@ import data.Cor;
 import data.Grafo;
 import data.Vertice;
 
+/*
+ * Classe que implementa o algoritmo "Busca em Largura (BFS)"
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class BuscaLargura extends AlgoritmoGrafo{
 	
 		private Vertice verticeOrigem;
@@ -57,6 +63,11 @@ import data.Vertice;
 			this.cor = cor;
 		}
 
+		/*
+		 * Método de inicialização de estruturas essenciais para execução do algoritmo
+		 * Pré-condição: Grafo e vértice de origem não nulos
+		 * Pós-condição: Nenhum
+		 */
 		public void inicializaBFS() {
 			
 			for(int i = 0 ; i < this.getGrafo().getQtdVertice() ; i++) {
@@ -68,6 +79,11 @@ import data.Vertice;
 			ordemVertice.add(this.verticeOrigem.getNroVertice());
 		}
 		
+		/*
+		 * Método que realiza a execução do algoritmo "Busca em Largura (BFS)"
+		 * Pré-condição: Vértice de origem válido e grafo não nulo
+		 * Pós-condição: Ordem de visita de vértices definida
+		 */
 		public void BFS_visit() {
 			
 			try {
@@ -93,6 +109,11 @@ import data.Vertice;
 			}
 		}
 		
+		/*
+		 * Método que realiza a impressão do resultado para o algoritmo BFS, conforme instruído na especificação do trabalho
+		 * Pré-condição: Execução de algoritmo já realizada
+		 * Pós-condiçao: Impressão de resultado no console
+		 */
 		@Override
 		public void imprimeResultado() {
 		

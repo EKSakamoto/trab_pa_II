@@ -8,9 +8,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
 import data.Aresta;
 import data.Grafo;
 import data.Vertice;
@@ -25,6 +22,14 @@ import guru.nidi.graphviz.model.LinkSource;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import guru.nidi.graphviz.model.Node;
+
+/*
+ * Classe que realiza o desenho do grafo, considerando a documentação do Graphviz
+ * URL: https://github.com/nidi3/graphviz-java
+ * 		https://graphviz.org/
+ * 
+ * @author Eduardo Sakamoto
+ */
 
 	public class GraphDrawer{
 
@@ -84,6 +89,11 @@ import guru.nidi.graphviz.model.Node;
 			this.todoMST = todoMST;
 		}
 		
+		/*
+		 * Método que verifica se uma aresta é uma aresta de árvore geradora mínima
+		 * Pré-condição: Aresta não nula
+		 * Pós-condição: Resultado de comparação
+		 */
 		public boolean isArestaGeradora(Aresta target) {
 			
 			for(Aresta a : getArvoreGeradoraMinima()) {
@@ -93,6 +103,11 @@ import guru.nidi.graphviz.model.Node;
 			return false;
 		}
 			
+		/*
+		 * Método que realiza a geração de mapa inicial de Node, considerando a lista de vértices do grafo
+		 * Pré-condição: Grafo não nulo
+		 * Pós-condição: Mapa inicial de Nodes
+		 */
 		public LinkedHashMap<Integer,ArrayList<Node>> generateNodeMap(){
 			
 			LinkedHashMap<Integer,ArrayList<Node>> nodeMap = new LinkedHashMap<>();
@@ -110,6 +125,11 @@ import guru.nidi.graphviz.model.Node;
 			return nodeMap;
 		}
 		
+		/*
+		 * Método iterativo de montagem dos Nodes do grafo
+		 * Pré-condição: Estrutura de grafo, mapa inicial de Nodes e booleano para MST não nulos
+		 * Pós-condição: Configuração de Nodes do grafo
+		 */
 		public LinkSource iterativeNodeMontage() {
 
 			try {
@@ -123,10 +143,11 @@ import guru.nidi.graphviz.model.Node;
 						node = node.link(nodeList.get(i));
 					}
 					targetNode[nodeKey] = node;
-					System.out.println("Node " + nodeKey + " ==> " + node);
+//					System.out.println("Node " + nodeKey + " ==> " + node);
 				}
 				
-				MutableGraph subgraph = mutGraph().add(targetNode)
+				MutableGraph subgraph = mutGraph().setName("edges")
+												  .add(targetNode)
 												  .setDirected(getDadoGrafo().isOrientado())
 												  .setStrict(true)
 												  .setCluster(true);
@@ -140,11 +161,11 @@ import guru.nidi.graphviz.model.Node;
 							if(isArestaGeradora(new Aresta(start,end))) {
 								l = l.linkTo().add(Color.RED);	
 							}
-							System.out.println("(" + start + "," + end + ")");
+//							System.out.println("(" + start + "," + end + ")");
 						}
 					}
 				}
-				System.out.println("Graph Generated");
+//				System.out.println("Graph Generated");
 				return subgraph;
 			}catch(Exception e) {
 				// e.printStackTrace();
@@ -152,15 +173,20 @@ import guru.nidi.graphviz.model.Node;
 			}
 		}
 		
+		/*
+		 * Método que define a estrutura do desenho de grafo
+		 * Pré-condição: Estrutura de grafo não nula
+		 * Pós-condição: Definição de Graph para realizar sua renderização
+		 */
 		public void drawGeneralGraph() {
 			
 			try {
 				Graphviz.useDefaultEngines();
 //				Graphviz.useEngine(Arrays.asList((GraphvizEngine) new V8JavascriptEngine()));
-				if(getDadoGrafo().isOrientado()) ;
-				graph = graph(getDadoGrafo().getNomeGrafo()).graphAttr()
-						.with(Rank.dir(RankDir.LEFT_TO_RIGHT))
-						.linkAttr().with("class", "link-class")
+				graph = graph(getDadoGrafo().getNomeGrafo())
+						.graphAttr().with(Rank.dir(RankDir.LEFT_TO_RIGHT))
+						.graphAttr().with("splines","spline")
+//						.linkAttr().with("class", "link-class")
 						.with(iterativeNodeMontage());
 				System.out.println(graph);
 				renderGraphFile(graph);
@@ -169,33 +195,31 @@ import guru.nidi.graphviz.model.Node;
 			}
 		}
 		
+		/*
+		 * Método que realiza a renderização de um grafo para arquivos dos formatos .txt e .png
+		 * Pré-condição: 'Graph' não nulo
+		 * Pós-condição: Geração de arquivos de grafo
+		 */
 		public void renderGraphFile(Graph g) {
 			
 			try {
-				File file = Graphviz.fromGraph(g)
+				File image, dot;	
+				image = Graphviz.fromGraph(g)
 								    .height(1000)
 								    .render(Format.PNG)
 								    .toFile(new File("image/" + getDadoGrafo().getNomeGrafo() + ".png"));
-				System.out.println("Arquivo '" + file.getAbsolutePath() + "' Gerado com Sucesso!");
+				dot = Graphviz.fromGraph(g)
+					    .render(Format.DOT)
+					    .toFile(new File("dot/" + getDadoGrafo().getNomeGrafo() + ".txt"));
+				System.out.println("\tArquivo '" + image.getAbsolutePath() + "' Gerado com Sucesso!");
+				System.out.println("\tAs imagens estão no diretório ${project_basedir}/image");
+				
+				System.out.println("\tArquivo '" + dot.getAbsolutePath() + "' Gerado com Sucesso!");
+				System.out.println("\tOs arquivos txt dos DOTs estão no diretório ${project_basedir}/dot");
 			}catch(Exception e) {
 				// e.printStackTrace();
-				System.err.println("Error ao Gerar arquivo");
-			}
-			try {
-
-				System.out.println("bbb");
-//				System.setProperty("java.awt.headless","false");
-				SwingUtilities.invokeLater(() -> {
-					System.setProperty("java.awt.headless","true");
-					JFrame f = new JFrame("myframe");
-				    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				    f.setVisible(true);
-				});
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+				System.err.println("\tError ao Gerar arquivo");
+			}	
 		}
 		
-		
-	
 	}

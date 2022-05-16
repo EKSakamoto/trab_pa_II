@@ -1,5 +1,11 @@
 package util;
 
+/*
+ * Estrutura auxiliar que define determinados erros no programa
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public enum ErrorCodes {
 	
 		ERROR_EXECUTION_ALGORITHM("Erro na Execução do Algoritmo"),

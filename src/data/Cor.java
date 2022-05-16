@@ -1,5 +1,11 @@
 package data;
 
+/*
+ * Estrutura de cor para auxiliar na implementação dos algoritmos de busca (DFS e BFS)
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public enum Cor {
 	
 		BRANCO(1),

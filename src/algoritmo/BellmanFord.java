@@ -8,6 +8,12 @@ import data.Vertice;
 import util.ErrorCodes;
 import util.SorterAresta_VerticeOrigem;
 
+/*
+ * Classe que implementa o algoritmo 'Menor Caminho: Bellman-Ford'
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class BellmanFord extends AlgoritmoGrafo{
 
 		private Vertice verticeOrigem;
@@ -15,7 +21,6 @@ import util.SorterAresta_VerticeOrigem;
 		private int[] predecessor;
 		private ArrayList<Aresta> listaAresta;
 		
-		// TODO Considerar uso de predecessor para montagem de caminho
 		public BellmanFord() {
 			super();
 		}
@@ -28,6 +33,11 @@ import util.SorterAresta_VerticeOrigem;
 			listaAresta = new ArrayList<>();
 		}
 		
+		/*
+		 * Método que realiza a definição da lista de arestas, ordenada em ordem numerológica
+		 * Pré-condição: Listas de vértices e arestas Adjacentes não vazia
+		 * Pós-condição: Atribuição de lista de arestas ordenadas
+		 */
 		public void defineListaAresta() {		
 			
 			for(Vertice v : this.getGrafo().getListaVertice()) {
@@ -36,6 +46,12 @@ import util.SorterAresta_VerticeOrigem;
 			listaAresta.sort(new SorterAresta_VerticeOrigem());
 		}
 		
+		/*
+		 * Método de relaxação...
+		 * 
+		 * Pré-condição: Entrada de aresta não nula
+		 * Pós-condição: Atualização de vetores de distância e predecessor
+		 */
 		public void relax(Aresta a) {
 			
 			if(d[a.getVerticeOrigem()] != Integer.MAX_VALUE && 
@@ -45,6 +61,11 @@ import util.SorterAresta_VerticeOrigem;
 			}
 		}
 		
+		/*
+		 * Método de inicialização de estruturas essenciais para execução do algoritmo
+		 * Pré-condição: Grafo não nulo
+		 * Pós-condição: Definição de estruturas essenciais
+		 */
 		public void inicializaOrigem() {
 			
 			defineListaAresta();
@@ -55,6 +76,11 @@ import util.SorterAresta_VerticeOrigem;
 			d[verticeOrigem.getNroVertice()] = 0;
 		}
 		
+		/*
+		 * Método que realiza a execução do algoritmo Bellman-Ford
+		 * Pré-condição: Grafo não nulo e grafo deve ser orientado
+		 * Pós-condição: Execução do algoritmo, podendo verificar existência de ciclo negativo
+		 */
 		public boolean bellmanFord() {
 			
 			inicializaOrigem();
@@ -90,6 +116,11 @@ import util.SorterAresta_VerticeOrigem;
 			
 		}
 		
+		/*
+		 * Método recursivo que realiza a construção de caminho, a partir de um determinado vértice de 'origem'
+		 * Pré-condição: Número de vértice deve estar contido na lista de vértices 
+		 * Pós-condição: Definição de caminho
+		 */
 		public String defineCaminho(int nroVertice) {
 			
 			if(predecessor[nroVertice] == -1 &&
@@ -100,6 +131,11 @@ import util.SorterAresta_VerticeOrigem;
 			}
 		}
 		
+		/*
+		 * Método que define o início do caminho de um determinado vértice
+		 * Pré-condição: Número de vértice deve estar contido na lista de vértices 
+		 * Pós-condição: Definição de caminho
+		 */
 		public String constroiCaminho(int nroVertice) {
 			
 			String caminho = String.valueOf(nroVertice);
@@ -107,6 +143,11 @@ import util.SorterAresta_VerticeOrigem;
 			return constroiCaminho(predecessor[nroVertice]) + " - " + caminho;
 		}
 		
+		/*
+		 * Método que realiza a impressão do resultado para o algoritmo Bellman-Ford, conforme instruído na especificação do trabalho
+		 * Pré-condição: Execução de algoritmo já realizada
+		 * Pós-condiçao: Impressão de resultado no console
+		 */
 		@Override
 		public void imprimeResultado() {
 
