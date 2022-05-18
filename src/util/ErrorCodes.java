@@ -20,14 +20,29 @@ package util;
 		
 		private String message;
 	
+		/*
+		 * Construtor de inicialização de um ErroCode
+		 * 
+		 * @param message - Texto referente a mensagem de um erro
+		 */
 		ErrorCodes(String message) {
 			this.message = message;
 		}
 
+		/*
+		 * Método getter voltado para uma mensagem de erro
+		 * 
+		 * @return message - Texto referente a uma mensagem de erro
+		 */
 		public String getMessage() {
 			return message;
 		}
 
+		/*
+		 * Método setter referente a uma mensagem de erro
+		 * 
+		 * @para message - Parâmetro referente a uma mensagem de erro
+		 */
 		public void setMsg(String message) {
 			this.message = message;
 		}

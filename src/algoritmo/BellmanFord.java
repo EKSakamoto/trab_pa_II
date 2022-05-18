@@ -25,6 +25,12 @@ import util.SorterAresta_VerticeOrigem;
 			super();
 		}
 		
+		/*
+		 * Construtuor de inicialização para o algoritmo 'Menor Caminho: Bellman-Ford'
+		 * 
+		 * @param grafo   - Parâmetro referente ao grafo a ser processado pelo algoritmo
+		 * @param vertice - Parâmetro referente ao número do vértice de origem, no contexto do algoritmo
+		 */
 		public BellmanFord(Grafo grafo, int vertice) {
 			super(grafo,"Menor Caminho - Bellman-Ford");
 			verticeOrigem = grafo.getVerticeEspecifico(vertice);
@@ -48,9 +54,10 @@ import util.SorterAresta_VerticeOrigem;
 		
 		/*
 		 * Método de relaxação...
-		 * 
 		 * Pré-condição: Entrada de aresta não nula
 		 * Pós-condição: Atualização de vetores de distância e predecessor
+		 * 
+		 * @param a - Parâmetro referente a uma determinada aresta do grafo
 		 */
 		public void relax(Aresta a) {
 			
@@ -80,6 +87,8 @@ import util.SorterAresta_VerticeOrigem;
 		 * Método que realiza a execução do algoritmo Bellman-Ford
 		 * Pré-condição: Grafo não nulo e grafo deve ser orientado
 		 * Pós-condição: Execução do algoritmo, podendo verificar existência de ciclo negativo
+		 * 
+		 * @return boolean - Booleano referente a existência de ciclo negativo no grafo
 		 */
 		public boolean bellmanFord() {
 			
@@ -120,6 +129,9 @@ import util.SorterAresta_VerticeOrigem;
 		 * Método recursivo que realiza a construção de caminho, a partir de um determinado vértice de 'origem'
 		 * Pré-condição: Número de vértice deve estar contido na lista de vértices 
 		 * Pós-condição: Definição de caminho
+		 * 
+		 * @param  nroVertice - Parâmetro referente ao número de um determinado vértice do grafo
+		 * @return String     - Texto referente ao menor caminho, a partir do vértice parametrizado
 		 */
 		public String defineCaminho(int nroVertice) {
 			
@@ -135,6 +147,9 @@ import util.SorterAresta_VerticeOrigem;
 		 * Método que define o início do caminho de um determinado vértice
 		 * Pré-condição: Número de vértice deve estar contido na lista de vértices 
 		 * Pós-condição: Definição de caminho
+		 * 
+		 * @param  nroVertice - Parâmetro referente ao número de um determinado vértice do grafo
+		 * @return String     - Texto referente ao menor caminho, a partir do vértice parametrizado
 		 */
 		public String constroiCaminho(int nroVertice) {
 			
@@ -166,6 +181,9 @@ import util.SorterAresta_VerticeOrigem;
 			}
 		}
 		
+		/*
+		 * Método implementado do Runnable, responsável pela execução do algoritmo Bellman-Ford
+		 */
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub

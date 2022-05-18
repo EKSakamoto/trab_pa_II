@@ -39,10 +39,14 @@ import guru.nidi.graphviz.model.Node;
 		private boolean todoMST;
 		
 		public GraphDrawer() {
-			graph = null;
-			arvoreGeradoraMinima = new ArrayList<>();
+		
 		}
 		
+		/*
+		 * Construtor de inicialização de estrutura de desenho de grafo
+		 * 
+		 * @param dadoGrafo - Parâmetro referente a estrutura de grafo
+		 */
 		public GraphDrawer(Grafo dadoGrafo) {
 			this.dadoGrafo = dadoGrafo;
 			arvoreGeradoraMinima = new ArrayList<>();
@@ -50,55 +54,34 @@ import guru.nidi.graphviz.model.Node;
 			graph = null;
 		}
 		
+		/*
+		 * Construtor de inicialização de estrutura de desenho de grafo
+		 * 
+		 * @param dadoGrafo 		   - Parâmetro referente a estrutura de grafo
+		 * @param arvoreGeradoraMinima - Parâmetro referente a lista de arestas da árvore geradora mínima
+		 */
 		public GraphDrawer(Grafo dadoGrafo, ArrayList<Aresta> arvoreGeradoraMinima) {
 			this.dadoGrafo = dadoGrafo;
 			this.arvoreGeradoraMinima = arvoreGeradoraMinima;
 			this.todoMST = true;
 			graph = null;
 		}
-
-		public Graph getGraph() {
-			return graph;
-		}
-
-		public void setGraph(Graph graph) {
-			this.graph = graph;
-		}
-	
-		public Grafo getDadoGrafo() {
-			return dadoGrafo;
-		}
-
-		public void setDadoGrafo(Grafo dadoGrafo) {
-			this.dadoGrafo = dadoGrafo;
-		}
-
-		public ArrayList<Aresta> getArvoreGeradoraMinima() {
-			return arvoreGeradoraMinima;
-		}
-
-		public void setArvoreGeradoraMinima(ArrayList<Aresta> arvoreGeradoraMinima) {
-			this.arvoreGeradoraMinima = arvoreGeradoraMinima;
-		}
-
-		public boolean isTodoMST() {
-			return todoMST;
-		}
-
-		public void setTodoMST(boolean todoMST) {
-			this.todoMST = todoMST;
-		}
 		
 		/*
 		 * Método que verifica se uma aresta é uma aresta de árvore geradora mínima
 		 * Pré-condição: Aresta não nula
 		 * Pós-condição: Resultado de comparação
+		 * 
+		 * @param  target  - Parâmetro referente a uma determinada aresta
+		 * @return boolean - Booleano referente a comparação se a aresta parâmetro é uma aresta geradora
 		 */
 		public boolean isArestaGeradora(Aresta target) {
 			
-			for(Aresta a : getArvoreGeradoraMinima()) {
-				if(target.getVerticeOrigem() == a.getVerticeOrigem() &&
-				   target.getVerticeDestino() == a.getVerticeDestino())	return true;
+			if(todoMST) {
+				for(Aresta a : arvoreGeradoraMinima) {
+					if(target.getVerticeOrigem() == a.getVerticeOrigem() &&
+					   target.getVerticeDestino() == a.getVerticeDestino())	return true;
+				}
 			}
 			return false;
 		}
@@ -107,15 +90,17 @@ import guru.nidi.graphviz.model.Node;
 		 * Método que realiza a geração de mapa inicial de Node, considerando a lista de vértices do grafo
 		 * Pré-condição: Grafo não nulo
 		 * Pós-condição: Mapa inicial de Nodes
+		 * 
+		 * @return nodeMap - Estrutura de mapa inicial de Nodes, considetrando todos os vértices do grafo 
 		 */
-		public LinkedHashMap<Integer,ArrayList<Node>> generateNodeMap(){
+		public LinkedHashMap<Integer,ArrayList<Node>> generateInitialNodeMap(){
 			
 			LinkedHashMap<Integer,ArrayList<Node>> nodeMap = new LinkedHashMap<>();
-			for(int i = 0 ; i < getDadoGrafo().getQtdVertice() ; i++) {
+			for(int i = 0 ; i < this.dadoGrafo.getQtdVertice() ; i++) {
 				int keyNode = i;
 				ArrayList<Node> nodeList = new ArrayList<>();
-				for(Aresta a : getDadoGrafo().getListaAresta()) {
-					Vertice v = getDadoGrafo().getVerticeEspecifico(a.getVerticeOrigem());
+				for(Aresta a : this.dadoGrafo.getListaAresta()) {
+					Vertice v = this.dadoGrafo.getVerticeEspecifico(a.getVerticeOrigem());
 					if(keyNode == v.getNroVertice()) {
 						nodeList.add(node(String.valueOf(a.getVerticeDestino())));	// node().with(Color.RED) --> Realiza coloração de Vértice
 					}
@@ -129,11 +114,13 @@ import guru.nidi.graphviz.model.Node;
 		 * Método iterativo de montagem dos Nodes do grafo
 		 * Pré-condição: Estrutura de grafo, mapa inicial de Nodes e booleano para MST não nulos
 		 * Pós-condição: Configuração de Nodes do grafo
+		 * 
+		 * @return subgraph - LinkSource referente a um subgrafo composto pelos conjunto de Nodes (Vértice) e seus respectivos Links (Aresta)
 		 */
 		public LinkSource iterativeNodeMontage() {
 
 			try {
-				LinkedHashMap<Integer,ArrayList<Node>> nodeMap = generateNodeMap();
+				LinkedHashMap<Integer,ArrayList<Node>> nodeMap = generateInitialNodeMap();
 				Node[] targetNode = new Node[nodeMap.size()];
 				System.out.println(nodeMap);
 				for(Integer nodeKey : nodeMap.keySet()) {
@@ -148,23 +135,28 @@ import guru.nidi.graphviz.model.Node;
 				
 				MutableGraph subgraph = mutGraph().setName("edges")
 												  .add(targetNode)
-												  .setDirected(getDadoGrafo().isOrientado())
+												  .setDirected(this.dadoGrafo.isOrientado())
 												  .setStrict(true)
 												  .setCluster(true);
-				if(isTodoMST()) {
-					for(MutableNode n : subgraph.nodes()) {
-						for(Link l : n.links()) {
-							Integer start, end;
-							String[] split = l.name().value().split("--");
-							start = Integer.valueOf(split[0]);
-							end = Integer.valueOf(split[1]);
-							if(isArestaGeradora(new Aresta(start,end))) {
-								l = l.linkTo().add(Color.RED);	
-							}
-//							System.out.println("(" + start + "," + end + ")");
+				
+				for(MutableNode n : subgraph.nodes()) {
+					for(Link l : n.links()) {
+						Integer start, end;
+						String[] split = l.name().value().split("--");
+						start = Integer.valueOf(split[0]);
+						end = Integer.valueOf(split[1]);
+						if(isArestaGeradora(new Aresta(start,end))) {
+							l = l.linkTo().add(Color.RED);
 						}
+						l = l.add(l.with("label", String.valueOf(this.dadoGrafo.getArestaEspecifica(this.dadoGrafo.getVerticeEspecifico(start), 
+									  this.dadoGrafo.getVerticeEspecifico(end))
+										.getPeso()))
+									
+									);
+							System.out.println("(" + start + "," + end + ")");
 					}
 				}
+				
 //				System.out.println("Graph Generated");
 				return subgraph;
 			}catch(Exception e) {
@@ -183,9 +175,9 @@ import guru.nidi.graphviz.model.Node;
 			try {
 				Graphviz.useDefaultEngines();
 //				Graphviz.useEngine(Arrays.asList((GraphvizEngine) new V8JavascriptEngine()));
-				graph = graph(getDadoGrafo().getNomeGrafo())
+				graph = graph(this.dadoGrafo.getNomeGrafo())
 						.graphAttr().with(Rank.dir(RankDir.LEFT_TO_RIGHT))
-						.graphAttr().with("splines","spline")
+						.graphAttr().with("splines","true")
 //						.linkAttr().with("class", "link-class")
 						.with(iterativeNodeMontage());
 				System.out.println(graph);
@@ -199,6 +191,8 @@ import guru.nidi.graphviz.model.Node;
 		 * Método que realiza a renderização de um grafo para arquivos dos formatos .txt e .png
 		 * Pré-condição: 'Graph' não nulo
 		 * Pós-condição: Geração de arquivos de grafo
+		 * 
+		 * @param g - Parâmetro referente a estrutura Graph, contendo as informações da estrutura Grafo (processada pelo algoritmo em grafo)
 		 */
 		public void renderGraphFile(Graph g) {
 			
@@ -207,10 +201,10 @@ import guru.nidi.graphviz.model.Node;
 				image = Graphviz.fromGraph(g)
 								    .height(1000)
 								    .render(Format.PNG)
-								    .toFile(new File("image/" + getDadoGrafo().getNomeGrafo() + ".png"));
+								    .toFile(new File("image/" + this.dadoGrafo.getNomeGrafo() + ".png"));
 				dot = Graphviz.fromGraph(g)
 					    .render(Format.DOT)
-					    .toFile(new File("dot/" + getDadoGrafo().getNomeGrafo() + ".txt"));
+					    .toFile(new File("dot/" + this.dadoGrafo.getNomeGrafo() + ".txt"));
 				System.out.println("\tArquivo '" + image.getAbsolutePath() + "' Gerado com Sucesso!");
 				System.out.println("\tAs imagens estão no diretório ${project_basedir}/image");
 				

@@ -18,7 +18,7 @@ import util.GraphDrawer;
  * Clase inicializadora de programa, sendo também resposável pela interface do programa, que permite a execução 
  * de algoritmos em grafos, conforme a especificação do trabalho 2 da disciplina de Projeto e Análise de Algoritmos 
  * 
- * @author Eduardo Sakamoto
+ * @author  Eduardo Sakamoto
  */
 
 	public class ProgramMenu {
@@ -33,10 +33,24 @@ import util.GraphDrawer;
 			algoritmoGrafo = null;
 		}
 
+		/*
+		 * Método que pega o Scanner responsável pela leitura de dados
+		 * Pré-condição: Scanner não nulo
+		 * Pós-condição: Nenhuma
+		 * 
+		 * @return Scanner para leitura de dados
+		 */
 		public Scanner scan() {
 			return scan;
 		}
 		
+		/*
+		 * Método que realiza a leitura de um número inteiro no console
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Leitura Realizada
+		 * 
+		 * @return Inteiro referente ao número digitado no console
+		 */
 		public int readInt() {
 			int n = scan().nextInt();
 			scan().nextLine();
@@ -72,6 +86,8 @@ import util.GraphDrawer;
 		 * Método que realiza a impressão de uma mensagem, limpando o console em seguida
 		 * Pré-condição: Nenhuma
 		 * Pós-condição: Nenhuma
+		 * 
+		 * @param msg - Parâmetro a ser impresso no console (como mensagem)
 		 */
 		public static void printMessageAndClear(String msg) {
 			
@@ -84,6 +100,8 @@ import util.GraphDrawer;
 		 * Método que realiza a impressão de uma mensagem (como erro), limpando o console em seguida
 		 * Pré-condição: Nenhuma
 		 * Pós-condição: Nenhuma
+		 * 
+		 * @param msg - Parâmetro a ser impresso no console (como erro)
 		 */
 		public static void printErrorAndClear(String msg) {
 			
@@ -338,22 +356,24 @@ import util.GraphDrawer;
 				default:	printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
 				break;
 			}
-			menuPrincipal();
-			
+			menuPrincipal();	
 		}
 
 		/* TODO
 		 * Testar os algoritmos				-> Falta o Prim e testes básicos para outros algoritmos
 		 * DFS, BFS e Kruskal aparentemente -> OK: Testar para grafos orientados
-		 * Arrumar Prim
-		 * Arrumar Interface				
+		 * Arrumar Prim						
+		 * Arrumar Interface				-> Verificar conforme testes de interface
 		 * Desenhar grafo 					-> OK
+		 * Documentação 					-> OK (realizar para Prim, caso acrescentar novos métodos)
 		 */
 		
 		/*
 		 * Método main, responsável pela inicialização do programa principal
 		 * Pré-condição: Nenhuma
 		 * Pós-condição: Nenhuma
+		 * 
+		 * @param strgs - Parâmetro não utilizado
 		 */
 		public static void main(String[] strgs) {
 			

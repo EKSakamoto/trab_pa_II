@@ -23,33 +23,43 @@ import util.SorterAresta_Peso;
 		public Kruskal() {
 			super();
 		}
-		
+
+		/*
+		 * Construtor de inicilização para o algortitmo 'Árvore Geradora Mínima - Kruskal'
+		 * 
+		 * @param grafo - Parâmetro referente ao grafo a ser processado
+		 */
 		public Kruskal(Grafo grafo) {
 			super(grafo,"Árvore Geradora Mínima - Kruskal");
 			arestaArvoreGeradora = new ArrayList<>();
 			pesoTotal = 0;
 		}
 		
+		/*
+		 * Método getter voltado para lista de arestas da árvore geradora mínima
+		 * 
+		 * @return arestaArvoreGeradora - Estrutura da lista de arestas da árvore geradora mínima
+		 */
 		public ArrayList<Aresta> getArestaArvoreGeradora() {
 			return arestaArvoreGeradora;
 		}
 
+		/*
+		 * Método setter referente a lista de arestas da árvore geradora mínima
+		 * 
+		 * @param arestaArvoreGeradora - Parâmetro refernte a lista de arestas da árvore geradora mínima
+		 */
 		public void setArestaArvoreGeradora(ArrayList<Aresta> arestaArvoreGeradora) {
 			this.arestaArvoreGeradora = arestaArvoreGeradora;
-		}
-		
-		public int getPesoTotal() {
-			return pesoTotal;
-		}
-
-		public void setPesoTotal(int pesoTotal) {
-			this.pesoTotal = pesoTotal;
 		}
 
 		/*
 		 * Método que realiza a busca por um conjunto de vértice(s), a partir de um determinado vértice
 		 * Pré-condição: Número de vértice deve estar contido na lista de vértices do grafo
 		 * Pós-condição: Definição do conjunto de vértice requerido
+		 * 
+		 * @param  nroVertice - Parâmetro referente ao número de um determinado vértice do grafo
+		 * @return conjunto   - Conjunto de vértice que contém o vértice parametrizado
 		 */
 		public ConjuntoVertice procuraConjuntoVertice(int nroVertice) {
 			
@@ -120,15 +130,18 @@ import util.SorterAresta_Peso;
 		public void imprimeResultado() {
 
 			StringBuilder str = new StringBuilder();
-			str.append("peso total: ").append(this.getPesoTotal())
+			str.append("peso total: ").append(pesoTotal)
 			   .append("\n").append("arestas: ");
-			for(Aresta a : this.getArestaArvoreGeradora()) {
+			for(Aresta a : this.arestaArvoreGeradora) {
 				str.append(a.uvRepresentation()).append(" ");
 			}
 			str.append("\n");
 			System.out.println(str.toString());
 		}
 		
+		/*
+		 * Método implementado pelo Runnable, responsável pela execução do algoritmo Kruskal
+		 */
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub

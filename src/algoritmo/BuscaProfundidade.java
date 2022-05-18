@@ -22,42 +22,20 @@ import data.Vertice;
 			super();
 		}
 		
+		/*
+		 * Construtor de inicialização para o algoritmo 'Busca em Profundidade (DFS)'
+		 * 
+		 * @param grafo			   - Parâmetro referente ao grafo a ser processado
+		 * @param nroVerticeOrigem - Parâmetro referente ao número do vértice de origem, no contexto do algoritmo
+		 */
 		public BuscaProfundidade(Grafo grafo, int nroVerticeOrigem) {
 			
 			super(grafo,"Busca em Profundidade (DFS)");
-			if(nroVerticeOrigem >= grafo.getQtdVertice()) {
-				// ERROR CODE -> INPUT >= VERTEX QUANTITY
-				// ERRO ou considerar último vértice?
-			}
 			this.ordemVertice = new ArrayList<>();
 			cor = new Cor[this.getGrafo().getQtdVertice()];
 			this.verticeOrigem = this.getGrafo().getVerticeEspecifico(nroVerticeOrigem);
 		}
 		
-		public Vertice getVerticeOrigem() {
-			return verticeOrigem;
-		}
-
-		public void setVerticeOrigem(Vertice verticeOrigem) {
-			this.verticeOrigem = verticeOrigem;
-		}
-
-		public ArrayList<Integer> getOrdemVertice() {
-			return ordemVertice;
-		}
-
-		public void setOrdemVertice(ArrayList<Integer> ordemVertice) {
-			this.ordemVertice = ordemVertice;
-		}
-
-		public Cor[] getCor() {
-			return cor;
-		}
-
-		public void setCor(Cor[] cor) {
-			this.cor = cor;
-		}
-
 		/*
 		 * Método que inicializa as estruturas essenciais para execução do algoritmo
 		 * Pré-condição: Vértice de origem pré-definido válido
@@ -71,6 +49,12 @@ import data.Vertice;
 			ordemVertice.add(verticeOrigem.getNroVertice());
 		}
 		
+
+		/*
+		 * Método que devolve uma lista de vértices, colocando o vértice de origem no início da lista
+		 * 
+		 * @return list - Lista de vértices, organizado para processamento de algoritmo
+		 */
 		/*
 		public ArrayList<Vertice> gerarListaVertice_Origem(){
 			
@@ -80,6 +64,7 @@ import data.Vertice;
 			return list;
 		}
 		*/
+		
 		
 		/*
 		 * Método que realiza a execução do algoritmo "Busca em Profundidade (DFS)"
@@ -102,8 +87,7 @@ import data.Vertice;
 				}
 				*/
 			}catch(Exception e) {
-				e.printStackTrace();
-				// ERROR CODE?
+//				e.printStackTrace();
 			}
 		}
 	
@@ -111,6 +95,8 @@ import data.Vertice;
 		 * Método que realiza a visita recursiva dos vértices, conforme o algoritmo DFS
 		 * Pré-condição: Vértice de parâmetro válido
 		 * Pós-condição: Nenhum
+		 * 
+		 * @param v - Parâmetro referente a um determinado vértice do grafo
 		 */
 		public void DFS_visit(Vertice v) {
 			
@@ -145,6 +131,9 @@ import data.Vertice;
 			System.out.println(str.toString());
 		}
 		
+		/*
+		 * Método implementado pelo RUnnable, responsável pela execução do algoritmo DFS
+		 */
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub

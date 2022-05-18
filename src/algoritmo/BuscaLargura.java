@@ -23,6 +23,12 @@ import data.Vertice;
 			super();
 		}
 		
+		/*
+		 * Construtor de inicialização para o algoritmo 'Busca em Largura (BFS)'
+		 * 
+		 * @param grafo			   - Parâmetro referente ao grafo a ser processado
+		 * @param nroVerticeOrigem - Parâmetro referente ao número de vértice de origem, no contexto do algoritmo 
+		 */
 		public BuscaLargura(Grafo grafo, int nroVerticeOrigem) {
 			super(grafo,"Busca em Largura (BFS)");
 			this.ordemVertice = new ArrayList<>();
@@ -31,38 +37,6 @@ import data.Vertice;
 			this.verticeOrigem = this.getGrafo().getVerticeEspecifico(nroVerticeOrigem);
 		}
 		
-		public Vertice getVerticeOrigem() {
-			return verticeOrigem;
-		}
-
-		public void setVerticeOrigem(Vertice verticeOrigem) {
-			this.verticeOrigem = verticeOrigem;
-		}
-
-		public ArrayList<Integer> getOrdemVertice() {
-			return ordemVertice;
-		}
-
-		public void setOrdemVertice(ArrayList<Integer> ordemVertice) {
-			this.ordemVertice = ordemVertice;
-		}
-
-		public int[] getDistancia() {
-			return distancia;
-		}
-
-		public void setDistancia(int[] distancia) {
-			this.distancia = distancia;
-		}
-
-		public Cor[] getCor() {
-			return cor;
-		}
-
-		public void setCor(Cor[] cor) {
-			this.cor = cor;
-		}
-
 		/*
 		 * Método de inicialização de estruturas essenciais para execução do algoritmo
 		 * Pré-condição: Grafo e vértice de origem não nulos
@@ -72,7 +46,7 @@ import data.Vertice;
 			
 			for(int i = 0 ; i < this.getGrafo().getQtdVertice() ; i++) {
 				cor[i] = Cor.BRANCO;
-				distancia[i] = Integer.MAX_VALUE; // Infinito
+				distancia[i] = Integer.MAX_VALUE; 		// Alternativa para Infinito (contexto do algoritmo)
 			}
 			cor[this.verticeOrigem.getNroVertice()] = Cor.CINZA;
 			distancia[this.verticeOrigem.getNroVertice()] = 0;
@@ -125,6 +99,9 @@ import data.Vertice;
 			System.out.println(str.toString());
 		}
 		
+		/*
+		 * Método implementado pelo Runnable, responsável pela execução do algoritmo BFS
+		 */
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub

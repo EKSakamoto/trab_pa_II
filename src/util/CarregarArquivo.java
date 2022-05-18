@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-import algoritmo.Kruskal;
+import algoritmo.Prim;
 import data.Aresta;
 import data.Grafo;
 
@@ -23,15 +23,12 @@ import data.Grafo;
 			
 		}
 		
+		/*
+		 * Construtor de inicialização para carga de arquivo
+		 * 
+		 * @param file - Parâmetro referente ao arquivo alvo para processo de conversão em grafo
+		 */
 		public CarregarArquivo(File file) {
-			this.file = file;
-		}
-		
-		public File getFile() {
-			return file;
-		}
-
-		public void setFile(File file) {
 			this.file = file;
 		}
 
@@ -39,6 +36,8 @@ import data.Grafo;
 		 * Método que realiza a conversão de um arquivo txt numa estrutura de grafo
 		 * Pré-condição: Arquivo não nulo
 		 * Pós-condição: Resultado de conversão de arquivo
+		 * 
+		 * @return grafo - Estrutura de grafo resultante da leitura de arquivo
 		 */
 		public Grafo converteArquivo() {
 			
@@ -77,21 +76,21 @@ import data.Grafo;
 		
 		public static void main(String[] strgs) {
 			
-			CarregarArquivo a = new CarregarArquivo();
-			a.setFile(new File("C:\\Users\\Eduar\\paa\\TrabalhoII_PAA\\src\\util\\testeKruskal"));
+			CarregarArquivo a = new CarregarArquivo(new File("C:\\Users\\Eduar\\paa\\TrabalhoII_PAA\\src\\util\\figura2"));
 			Grafo g = a.converteArquivo();
 			
 			/*
 			BuscaProfundidade b = new BuscaProfundidade(g,8);
 			b.run();
-			GraphDrawer drawer = new GraphDrawer(g);
-			drawer.drawGeneralGraph();
-			*/
-			Kruskal k = new Kruskal(g);
-			k.run();
-			GraphDrawer drawer = new GraphDrawer(g,k.getArestaArvoreGeradora());
-			drawer.drawGeneralGraph();
 			
+			*/
+			
+			Prim p = new Prim(g,2);
+			p.run();
+
+
+			GraphDrawer drawer = new GraphDrawer(g,p.getArestaArvoreGeradora());
+			drawer.drawGeneralGraph();
 			
 			/*
 			System.out.println(g.getNomeGrafo());

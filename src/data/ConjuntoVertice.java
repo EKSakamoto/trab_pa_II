@@ -15,11 +15,21 @@ import java.util.ArrayList;
 			super();
 		}
 		
+		/*
+		 * Construtor de inicialização de um conjunto de vértice
+		 * 
+		 * @param v - Parâmetro referente a um único vértice do grafo
+		 */
 		public ConjuntoVertice(Vertice v) {
 			super();
 			this.add(v);
 		}
 		
+		/*
+		 * Construtor de inicialização de um conjunto de vértice
+		 * 
+		 * @param list - Parâmetro refernete a uma lista de vértices presentes no grafo
+		 */
 		public ConjuntoVertice(ArrayList<Vertice> list) {
 			super(list);
 		}
@@ -28,10 +38,11 @@ import java.util.ArrayList;
 		 * Método que realiza a operação de união entre dois conjuntos de vértices
 		 * Pré-condição: Conjunto de vértice(s) não nulo
 		 * Pós-condição: União resultante dos conjuntos
+		 * 
+		 * @param conj - Parâmetro referente a um conjunto de vértices
 		 */
 		public void union(ConjuntoVertice conj) {
 			
-			// Se não for funcional, utilizar comparação com dois for
 			for(Vertice v : conj) {
 				if(!this.contains(v))	this.add(v);
 			}
@@ -41,6 +52,9 @@ import java.util.ArrayList;
 		 * Método que verifica a distinção entre dois conjuntos de vértices
 		 * Pré-condição: Conjunto de vértice(s) não nulo
 		 * Pós-condição: Resultado de distinção
+		 * 
+		 * @param  conj    - Parâmetro referente a um conjunto de vértices
+		 * @return boolean - Boolean voltado para resultado de distinção de dois conjuntos de vértices
 		 */
 		public boolean distintoConjuntoVertice(ConjuntoVertice conj) {
 			

@@ -14,10 +14,20 @@ package data;
 		
 		private int valor;
 		
+		/*
+		 * Construtor de incialização de uma cor
+		 * 
+		 * @param valor - Parâmetro referente ao valor atribuído a uma cor
+		 */
 		Cor(int valor) {
 			this.valor = valor;
 		}
 		
+		/*
+		 * Método getter referente ao valor de uma cor
+		 * 
+		 * @return valor - Inteiro voltado para valor de uma cor
+		 */
 		public int getValor() {
 			return valor;
 		}
