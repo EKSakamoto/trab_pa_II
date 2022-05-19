@@ -48,24 +48,7 @@ import data.Vertice;
 			}
 			ordemVertice.add(verticeOrigem.getNroVertice());
 		}
-		
-
-		/*
-		 * Método que devolve uma lista de vértices, colocando o vértice de origem no início da lista
-		 * 
-		 * @return list - Lista de vértices, organizado para processamento de algoritmo
-		 */
-		/*
-		public ArrayList<Vertice> gerarListaVertice_Origem(){
-			
-			ArrayList<Vertice> list = this.getGrafo().getListaVertice();
-			list.remove(verticeOrigem);
-			list.add(0, verticeOrigem);
-			return list;
-		}
-		*/
-		
-		
+				
 		/*
 		 * Método que realiza a execução do algoritmo "Busca em Profundidade (DFS)"
 		 * Pré-condição: Vértice de origem válido
@@ -76,16 +59,6 @@ import data.Vertice;
 			try {
 				inicializaDFS();
 				DFS_visit(verticeOrigem);
-				
-				/* Implementação considerada caso fosse percorrer todos os vértices, independente do grafo ser conexo ou não	
-				ArrayList<Vertice> list = gerarListaVertice_Origem();
-				for(Vertice u : list) {
-					if(cor[u.getNroVertice()] == Cor.BRANCO) {
-						ordemVertice.add(u.getNroVertice());
-						DFS_visit(u);
-					}
-				}
-				*/
 			}catch(Exception e) {
 //				e.printStackTrace();
 			}
@@ -123,7 +96,8 @@ import data.Vertice;
 		@Override
 		public void imprimeResultado() {
 		
-			StringBuilder str = new StringBuilder();
+			super.imprimeResultado();
+			StringBuilder str = new StringBuilder("\t");
 			for(Integer nroVertice : ordemVertice) {
 				str.append(nroVertice).append(" - ");
 			}

@@ -1,12 +1,10 @@
 package algoritmo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import data.Aresta;
 import data.Grafo;
 import data.Vertice;
-import util.SorterAresta_VerticeOrigem;
 
 	public class Prim extends AlgoritmoGrafo{
 	
@@ -105,8 +103,6 @@ import util.SorterAresta_VerticeOrigem;
 			inicializaOrigem();
 			while(!vertice_ausenteArvore.isEmpty()) {
 				Vertice u = extraiVertice_MinimoKey(vertice_ausenteArvore);
-				System.out.println("Vertice " + ((char) (u.getNroVertice() + 97)));
-				System.out.println(Arrays.toString(key));
 				vertice_ausenteArvore.remove(u);
 				for(Vertice adj : this.getGrafo().getMapaAdjacencia().get(u)) {
 					Aresta a = this.getGrafo().getArestaEspecifica(u,adj);
@@ -114,28 +110,9 @@ import util.SorterAresta_VerticeOrigem;
 					   a.getPeso() < key[adj.getNroVertice()]) {
 						predecessor[adj.getNroVertice()] = u.getNroVertice();
 						key[adj.getNroVertice()] = a.getPeso();
-						/*
-						arestaArvoreGeradora.add(a);
-						// Problema está no add da lista de arestas (adicionando arestas a mais)
-						System.out.println("(" +
-								(char) (a.getVerticeOrigem() + 97) + "," +
-								(char) (a.getVerticeDestino() + 97) + 
-								")" + " Passo");
-								*/
-					// Verificar algoritmo
 					}	
 				}
 			}
-			/*
-			arestaArvoreGeradora.sort(new SorterAresta_VerticeOrigem());
-			for(Aresta a : arestaArvoreGeradora) {
-				System.out.print("(" +
-									(char) (a.getVerticeOrigem() + 97) + "," +
-									(char) (a.getVerticeDestino() + 97) + 
-									")" + " | ");
-				
-			}
-			*/
 			defineArvoreGeradora();
 			calculaPesoTotal();
 		}
@@ -149,8 +126,8 @@ import util.SorterAresta_VerticeOrigem;
 			
 			for(int i = 0 ; i < predecessor.length ; i++) {
 				if(predecessor[i] >= 0) {
-					arestaArvoreGeradora.add(this.getGrafo().getArestaEspecifica(this.getGrafo().getVerticeEspecifico(i),
-							 this.getGrafo().getVerticeEspecifico(predecessor[i])));
+					arestaArvoreGeradora.add(this.getGrafo().getArestaEspecifica(
+							 this.getGrafo().getVerticeEspecifico(i), this.getGrafo().getVerticeEspecifico(predecessor[i])));
 				}
 			}
 		}
@@ -175,9 +152,10 @@ import util.SorterAresta_VerticeOrigem;
 		@Override
 		public void imprimeResultado() {
 
-			StringBuilder str = new StringBuilder();
-			str.append("vértice inicial: ").append(this.verticeOrigem.getNroVertice()).append("\n")
-			   .append("peso total: ").append(this.pesoTotal).append("\n")
+			super.imprimeResultado();
+			StringBuilder str = new StringBuilder("\t");
+			str.append("vértice inicial: ").append(this.verticeOrigem.getNroVertice()).append("\n\t\t")
+			   .append("peso total: ").append(this.pesoTotal).append("\n\t")
 			   .append("arestas: ");
 			for(Aresta a : this.arestaArvoreGeradora) {
 				str.append(a.uvRepresentation()).append(" ");

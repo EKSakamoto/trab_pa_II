@@ -27,6 +27,9 @@ import util.GraphDrawer;
 		private AlgoritmoGrafo algoritmoGrafo;
 		private Grafo grafo;
 		
+		/*
+		 * Construtor de inicialização do menu inicial do programa
+		 */
 		public ProgramMenu() {
 			scan = new Scanner(System.in);
 			grafo = null;
@@ -141,6 +144,24 @@ import util.GraphDrawer;
 		}
 		
 		/*
+		 * Método que realiza a impressão dos últimos dados selecionados para processamento de grafo
+		 * Pré-condição: Nenhuma
+		 * Pós-condição: Possível impressão de tipo de algoritmo e/ou do grafo carregado no console
+		 */
+		public void atribuicaoRecurso_AlgoritmoGrafo() {
+			
+			if(grafo != null) {
+				System.out.println("\n\tGrafo em Uso: " + grafo.getNomeGrafo());
+				if(algoritmoGrafo != null) {
+					System.out.println("\tÚltimo Algoritmo Selecionado: " + algoritmoGrafo.getTipoAlgoritmo() + "\n");
+				}else {
+					System.out.println();
+				}
+			}
+		}
+		
+		
+		/*
 		 * Método que realiza a impressão do título do menu principal
 		 * Pré-condição: Nenhuma
 		 * Pós-condição: Nenhuma
@@ -186,12 +207,12 @@ import util.GraphDrawer;
 		 */
 		public void opcaoMenuAlgoritmo() {
 			
-			System.out.println("\t\t1 - Busca em Profundidade (DFS)");
-			System.out.println("\t\t2 - Busca em Largura (BFS)");
-			System.out.println("\t\t3 - Menor Caminho: Bellman-Ford");
-			System.out.println("\t\t4 - Árvore Geradora Mínima: Kruskal");
-			System.out.println("\t\t5 - Árvore Geradora Mínima: Prim");
-			System.out.println("\t\t0 - Voltar");
+			System.out.println("\t1 - Busca em Profundidade (DFS)");
+			System.out.println("\t2 - Busca em Largura (BFS)");
+			System.out.println("\t3 - Menor Caminho: Bellman-Ford");
+			System.out.println("\t4 - Árvore Geradora Mínima: Kruskal");
+			System.out.println("\t5 - Árvore Geradora Mínima: Prim");
+			System.out.println("\t0 - Voltar");
 		}
 		
 		/*
@@ -202,6 +223,7 @@ import util.GraphDrawer;
 		public void menuAlgoritmo() {
 			
 			tituloMenuAlgoritmo();
+			atribuicaoRecurso_AlgoritmoGrafo();
 			opcaoMenuAlgoritmo();
 			selecionarComando();
 			int comando, nroVertice;
@@ -299,6 +321,7 @@ import util.GraphDrawer;
 		public void menuPrincipal() {
 			
 			tituloMenuPrincipal();
+			atribuicaoRecurso_AlgoritmoGrafo();
 			opcaoMenuPrincipal();
 			selecionarComando();
 			int comando;
@@ -315,6 +338,7 @@ import util.GraphDrawer;
 							if(grafo == null) {
 								printErrorAndClear(ErrorCodes.INVALID_FILE_INPUT.getMessage());
 							}else {
+								algoritmoGrafo = null;
 								printMessageAndClear("Grafo carregado com sucesso!");
 							}
 				break;
@@ -327,6 +351,8 @@ import util.GraphDrawer;
 				break;
 				case 3:		if(grafo == null) {
 								printErrorAndClear(ErrorCodes.ERROR_NO_GRAPH_LOADED.getMessage());
+							}else if(algoritmoGrafo == null) {
+								printErrorAndClear(ErrorCodes.ERROR_GRAPH_NOT_PROCESSED.getMessage());
 							}else {
 								GraphDrawer drawer;
 								switch(algoritmoGrafo.getTipoAlgoritmo()) {
@@ -360,12 +386,11 @@ import util.GraphDrawer;
 		}
 
 		/* TODO
-		 * Testar os algoritmos				-> Falta o Prim e testes básicos para outros algoritmos
-		 * DFS, BFS e Kruskal aparentemente -> OK: Testar para grafos orientados
-		 * Arrumar Prim						
+		 * Testar os algoritmos				-> DFS, BFS, Bellman-Ford, Kruskal e Prim (considerando grafo orientado e não-orientado)
+		 * Arrumar Prim						-> Aparentemente OK
 		 * Arrumar Interface				-> Verificar conforme testes de interface
 		 * Desenhar grafo 					-> OK
-		 * Documentação 					-> OK (realizar para Prim, caso acrescentar novos métodos)
+		 * Documentação 					-> OK
 		 */
 		
 		/*

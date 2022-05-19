@@ -129,9 +129,12 @@ import util.SorterAresta_Peso;
 		@Override
 		public void imprimeResultado() {
 
+			super.imprimeResultado();
 			StringBuilder str = new StringBuilder();
-			str.append("peso total: ").append(pesoTotal)
-			   .append("\n").append("arestas: ");
+			str.append("\t")
+			   .append("peso total: ").append(pesoTotal)
+			   .append("\n\t")
+			   .append("arestas: ");
 			for(Aresta a : this.arestaArvoreGeradora) {
 				str.append(a.uvRepresentation()).append(" ");
 			}

@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import algoritmo.BellmanFord;
+import algoritmo.BuscaLargura;
+import algoritmo.BuscaProfundidade;
+import algoritmo.Kruskal;
 import algoritmo.Prim;
 import data.Aresta;
 import data.Grafo;
@@ -74,23 +78,78 @@ import data.Grafo;
 			}
 		}
 		
+		/* TODO
+		 * Testar os algoritmos				-> DFS, BFS, Bellman-Ford, Kruskal e Prim (considerando grafo orientado e não-orientado)
+		 * Arrumar Prim						-> Aparentemente OK
+		 * Arrumar Interface				-> Verificar conforme testes de interface
+		 * Desenhar grafo 					-> OK
+		 * Documentação 					-> OK
+		 */
+		
 		public static void main(String[] strgs) {
 			
 			CarregarArquivo a = new CarregarArquivo(new File("C:\\Users\\Eduar\\paa\\TrabalhoII_PAA\\src\\util\\figura2"));
 			Grafo g = a.converteArquivo();
+
+			BuscaProfundidade dfs = new BuscaProfundidade(g,3);
+			BuscaLargura bfs = new BuscaLargura(g,3);
+			BellmanFord b = new BellmanFord(g,3);
+			Kruskal k = new Kruskal(g);
+			Prim p = new Prim(g,3);
 			
-			/*
-			BuscaProfundidade b = new BuscaProfundidade(g,8);
+			System.out.println("DFS\n========");
+			dfs.run();
+			
+			System.out.println("BFS\n========");
+			bfs.run();
+			
+			System.out.println("BellmanFord\n========");
 			b.run();
 			
-			*/
+			System.out.println("Kruskal\n========");
+			k.run();
 			
-			Prim p = new Prim(g,2);
+			System.out.println("Prim\n========");
 			p.run();
-
-
-			GraphDrawer drawer = new GraphDrawer(g,p.getArestaArvoreGeradora());
+			
+			GraphDrawer drawer = new GraphDrawer(g,k.getArestaArvoreGeradora());
 			drawer.drawGeneralGraph();
+			
+			/*
+			 * figura1 -> Início Vértice 1
+			 * 
+			 * DFS:
+			 * BFS:
+			 * BellmanFord:
+			 * Kruskal:
+			 * Prim:
+			 * 
+			 * figura2 -> Início Vértice 2
+			 * 
+			 * DFS:
+			 * BFS:
+			 * BellmanFord:
+			 * Kruskal:
+			 * Prim:
+			 * 
+			 * figura2 -> Início Vértice 3
+			 * 
+			 * DFS: 3 - 0 - 2 - 4 - 1 - 5 - 6
+			 * BFS: 3 - 0 - 1 - 2 - 5 - 4 - 6
+			 * BellmanFord: Não permitir (grafo não orientado)
+			 * Kruskal: Peso 21 / (4,5),(1,3),(2,4),(0,3),(4,6),(2,3)
+			 * Prim:
+			 * 
+			 * testeDFS --> Inicio Vértice 0
+			 * 
+			 * DFS: 0 - 1 - 2 - 6 - 3 - 4 - 5 - 7
+			 * BFS: 0 - 1 - 3 - 4 - 2 - 5 - 6 - 7
+			 * BellmanFord: Não permitir
+			 * Kruskal:
+			 * Prim: 
+			 * 
+			 * testeBellmanFord	--> 
+			 */
 			
 			/*
 			System.out.println(g.getNomeGrafo());

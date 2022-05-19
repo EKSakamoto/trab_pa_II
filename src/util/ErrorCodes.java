@@ -10,6 +10,7 @@ package util;
 	
 		ERROR_EXECUTION_ALGORITHM("Erro na Execução do Algoritmo"),
 		ERROR_GRAPH_DRAW_FAILED("Erro ao Desenhar Grafo"),
+		ERROR_GRAPH_NOT_PROCESSED("Grafo Não Processado por Algoritmo!"),
 		ERROR_NO_GRAPH_LOADED("Nenhum Grafo Carregado!"),
 		INVALID_COMMAND_INPUT("Comando Inválido"),
 		INVALID_FILE_INPUT("Arquivo Inválido"),

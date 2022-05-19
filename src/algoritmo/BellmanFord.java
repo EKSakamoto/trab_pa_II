@@ -167,10 +167,14 @@ import util.SorterAresta_VerticeOrigem;
 		public void imprimeResultado() {
 
 			try {
+				super.imprimeResultado();
 				StringBuilder str = new StringBuilder();
-				str.append("origem: ").append(verticeOrigem.getNroVertice()).append("\n");
+				str.append("\t")
+					.append("origem: ")
+					.append(verticeOrigem.getNroVertice()).append("\n");
 				for(Vertice v : this.getGrafo().getListaVertice()) {
-					str.append("destino: ").append(v.getNroVertice()).append("\t")
+					str.append("\t")
+					   .append("destino: ").append(v.getNroVertice()).append("\t")
 					   .append("dist.: ").append(d[v.getNroVertice()]).append("\t")
 					   .append("caminho: ").append(defineCaminho(v.getNroVertice()))
 					   .append("\n");

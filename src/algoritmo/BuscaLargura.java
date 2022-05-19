@@ -91,7 +91,8 @@ import data.Vertice;
 		@Override
 		public void imprimeResultado() {
 		
-			StringBuilder str = new StringBuilder();
+			super.imprimeResultado();
+			StringBuilder str = new StringBuilder("\t");
 			for(Integer nroVertice : ordemVertice) {
 				str.append(nroVertice).append(" - ");
 			}

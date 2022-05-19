@@ -70,6 +70,10 @@ import data.Grafo;
 		 */
 		public void imprimeResultado() {
 			
+			System.out.println("\t===========================================");
+			System.out.println("\t| Resultado de Processamento de Algoritmo |");
+			System.out.println("\t===========================================");
+			System.out.println("\t");
 		}
 		
 		/*
