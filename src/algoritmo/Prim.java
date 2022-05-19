@@ -154,7 +154,7 @@ import data.Vertice;
 
 			super.imprimeResultado();
 			StringBuilder str = new StringBuilder("\t");
-			str.append("vértice inicial: ").append(this.verticeOrigem.getNroVertice()).append("\n\t\t")
+			str.append("vértice inicial: ").append(this.verticeOrigem.getNroVertice()).append("\n\t")
 			   .append("peso total: ").append(this.pesoTotal).append("\n\t")
 			   .append("arestas: ");
 			for(Aresta a : this.arestaArvoreGeradora) {

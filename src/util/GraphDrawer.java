@@ -6,6 +6,7 @@ import static guru.nidi.graphviz.model.Factory.node;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 import data.Aresta;
@@ -16,6 +17,8 @@ import guru.nidi.graphviz.attribute.Rank;
 import guru.nidi.graphviz.attribute.Rank.RankDir;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.engine.GraphvizEngine;
+import guru.nidi.graphviz.engine.V8JavascriptEngine;
 import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.Link;
 import guru.nidi.graphviz.model.LinkSource;
@@ -68,6 +71,16 @@ import guru.nidi.graphviz.model.Node;
 		}
 		
 		/*
+		 * 
+		 */
+		public void tituloDesenhoGrafo() {
+			
+			System.out.println("\t===================================");
+			System.out.println("\t| Informações de Desenho de Grafo |");
+			System.out.println("\t===================================\n");
+		}
+		
+		/*
 		 * Método que verifica se uma aresta é uma aresta de árvore geradora mínima
 		 * Pré-condição: Aresta não nula
 		 * Pós-condição: Resultado de comparação
@@ -79,8 +92,10 @@ import guru.nidi.graphviz.model.Node;
 			
 			if(todoMST) {
 				for(Aresta a : arvoreGeradoraMinima) {
-					if(target.getVerticeOrigem() == a.getVerticeOrigem() &&
-					   target.getVerticeDestino() == a.getVerticeDestino())	return true;
+					if(target.getVerticeOrigem() == a.getVerticeOrigem() && target.getVerticeDestino() == a.getVerticeDestino() ||
+						(!this.dadoGrafo.isOrientado() && 
+						(a.getVerticeOrigem() == target.getVerticeDestino() && a.getVerticeDestino() == target.getVerticeOrigem()))	)	
+						return true;
 				}
 			}
 			return false;
@@ -122,7 +137,6 @@ import guru.nidi.graphviz.model.Node;
 			try {
 				LinkedHashMap<Integer,ArrayList<Node>> nodeMap = generateInitialNodeMap();
 				Node[] targetNode = new Node[nodeMap.size()];
-				System.out.println(nodeMap);
 				for(Integer nodeKey : nodeMap.keySet()) {
 					Node node = node(nodeKey.toString());
 					ArrayList<Node> nodeList = nodeMap.get(nodeKey);
@@ -130,15 +144,12 @@ import guru.nidi.graphviz.model.Node;
 						node = node.link(nodeList.get(i));
 					}
 					targetNode[nodeKey] = node;
-//					System.out.println("Node " + nodeKey + " ==> " + node);
-				}
-				
+				}	
 				MutableGraph subgraph = mutGraph().setName("edges")
 												  .add(targetNode)
 												  .setDirected(this.dadoGrafo.isOrientado())
 												  .setStrict(true)
 												  .setCluster(true);
-				
 				for(MutableNode n : subgraph.nodes()) {
 					for(Link l : n.links()) {
 						Integer start, end;
@@ -150,14 +161,9 @@ import guru.nidi.graphviz.model.Node;
 						}
 						l = l.add(l.with("label", String.valueOf(this.dadoGrafo.getArestaEspecifica(this.dadoGrafo.getVerticeEspecifico(start), 
 									  this.dadoGrafo.getVerticeEspecifico(end))
-										.getPeso()))
-									
-									);
-							System.out.println("(" + start + "," + end + ")");
+										.getPeso())));
 					}
 				}
-				
-//				System.out.println("Graph Generated");
 				return subgraph;
 			}catch(Exception e) {
 				// e.printStackTrace();
@@ -173,8 +179,13 @@ import guru.nidi.graphviz.model.Node;
 		public void drawGeneralGraph() {
 			
 			try {
-				Graphviz.useDefaultEngines();
-//				Graphviz.useEngine(Arrays.asList((GraphvizEngine) new V8JavascriptEngine()));
+				try {
+					Graphviz.useEngine(Arrays.asList((GraphvizEngine) new V8JavascriptEngine()));		
+				}catch(Exception e) {
+					e.printStackTrace();
+					Graphviz.useDefaultEngines();
+				}
+				tituloDesenhoGrafo();
 				graph = graph(this.dadoGrafo.getNomeGrafo())
 						.graphAttr().with(Rank.dir(RankDir.LEFT_TO_RIGHT))
 						.graphAttr().with("splines","true")
@@ -183,7 +194,7 @@ import guru.nidi.graphviz.model.Node;
 				System.out.println(graph);
 				renderGraphFile(graph);
 			}catch(Exception e) {
-				// e.printStackTrace();
+				 e.printStackTrace();
 			}
 		}
 		
@@ -197,6 +208,7 @@ import guru.nidi.graphviz.model.Node;
 		public void renderGraphFile(Graph g) {
 			
 			try {
+				System.out.println("\n\tAguardando Renderização...\n");
 				File image, dot;	
 				image = Graphviz.fromGraph(g)
 								    .height(1000)
@@ -206,10 +218,10 @@ import guru.nidi.graphviz.model.Node;
 					    .render(Format.DOT)
 					    .toFile(new File("dot/" + this.dadoGrafo.getNomeGrafo() + ".txt"));
 				System.out.println("\tArquivo '" + image.getAbsolutePath() + "' Gerado com Sucesso!");
-				System.out.println("\tAs imagens estão no diretório ${project_basedir}/image");
+				System.out.println("\tAs imagens de grafos estão no diretório ${project_basedir}/image");
 				
 				System.out.println("\tArquivo '" + dot.getAbsolutePath() + "' Gerado com Sucesso!");
-				System.out.println("\tOs arquivos txt dos DOTs estão no diretório ${project_basedir}/dot");
+				System.out.println("\tOs arquivos txt dos DOTs dos grafos estão no diretório ${project_basedir}/dot");
 			}catch(Exception e) {
 				// e.printStackTrace();
 				System.err.println("\tError ao Gerar arquivo");

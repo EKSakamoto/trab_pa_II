@@ -67,7 +67,7 @@ import util.GraphDrawer;
 		 */
 		public static void clear() {
 			
-			System.out.println(new String(new char[30]).replace("\0", "\r\n"));
+			System.out.println(new String(new char[30]).replace("\0","\r\n"));
 		}
 		
 		/*
@@ -77,7 +77,7 @@ import util.GraphDrawer;
 		 */
 		public static void pressEnterToContinue(){ 
 		       
-			System.out.println("\n\tPressione 'Enter' para continuar...");
+			System.out.print("\n\tPressione 'Enter' para continuar...");
 		    try{
 		    	System.in.read();
 		    }catch(Exception e){
@@ -153,7 +153,7 @@ import util.GraphDrawer;
 			if(grafo != null) {
 				System.out.println("\n\tGrafo em Uso: " + grafo.getNomeGrafo());
 				if(algoritmoGrafo != null) {
-					System.out.println("\tÚltimo Algoritmo Selecionado: " + algoritmoGrafo.getTipoAlgoritmo() + "\n");
+					System.out.println("\tÚltimo Algoritmo Processado: " + algoritmoGrafo.getTipoAlgoritmo() + "\n");
 				}else {
 					System.out.println();
 				}
@@ -194,10 +194,10 @@ import util.GraphDrawer;
 		 */
 		public void opcaoMenuPrincipal() {
 			
-			System.out.println("\t\t1 - Carregar Grafo");
-			System.out.println("\t\t2 - Executar Algoritmo para Grafo");
-			System.out.println("\t\t3 - Desenhar Grafo");
-			System.out.println("\t\t0 - Finalizar Programa");
+			System.out.println("\t1 - Carregar Grafo");
+			System.out.println("\t2 - Executar Algoritmo para Grafo");
+			System.out.println("\t3 - Desenhar Grafo");
+			System.out.println("\t0 - Finalizar Programa");
 		}
 		
 		/*
@@ -288,7 +288,7 @@ import util.GraphDrawer;
 								printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
 							}
 				break;
-				case 0:		printMessageAndClear("");			
+				case 0:		clear();			
 							menuPrincipal();
 				break;
 				default:	printErrorAndClear(ErrorCodes.INVALID_COMMAND_INPUT.getMessage());
@@ -356,20 +356,20 @@ import util.GraphDrawer;
 							}else {
 								GraphDrawer drawer;
 								switch(algoritmoGrafo.getTipoAlgoritmo()) {
-								case "Árvore Geradora Mínima - Kruskal":		
-									drawer = new GraphDrawer(grafo,((Kruskal) algoritmoGrafo).getArestaArvoreGeradora());
-								break;
-								case "Árvore Geradora Mínima - Prim":
-									drawer = new GraphDrawer(grafo,((Prim) algoritmoGrafo).getArestaArvoreGeradora());
-								break;
-								default:
-									drawer = new GraphDrawer(grafo);
-								break;
+									case "Árvore Geradora Mínima - Kruskal":		
+										drawer = new GraphDrawer(grafo,((Kruskal) algoritmoGrafo).getArestaArvoreGeradora());
+									break;
+									case "Árvore Geradora Mínima - Prim":
+										drawer = new GraphDrawer(grafo,((Prim) algoritmoGrafo).getArestaArvoreGeradora());
+									break;
+									default:
+										drawer = new GraphDrawer(grafo);
+									break;
 								}
 								try {
 									clear();
 									drawer.drawGeneralGraph();
-									printMessageAndClear("");
+									printMessageAndClear("Grafo Desenhado com Sucesso!");
 								}catch(Exception e) {
 									// e.printStackTrace();
 									printErrorAndClear(ErrorCodes.ERROR_GRAPH_DRAW_FAILED.getMessage());
