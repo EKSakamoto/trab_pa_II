@@ -6,7 +6,7 @@ import data.Cor;
 import data.Grafo;
 import data.Vertice;
 
-/*
+/**
  * Classe que implementa o algoritmo "Busca em Largura (BFS)"
  * 
  * @author Eduardo Sakamoto
@@ -23,7 +23,7 @@ import data.Vertice;
 			super();
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização para o algoritmo 'Busca em Largura (BFS)'
 		 * 
 		 * @param grafo			   - Parâmetro referente ao grafo a ser processado
@@ -37,10 +37,11 @@ import data.Vertice;
 			this.verticeOrigem = this.getGrafo().getVerticeEspecifico(nroVerticeOrigem);
 		}
 		
-		/*
+		/**
 		 * Método de inicialização de estruturas essenciais para execução do algoritmo
-		 * Pré-condição: Grafo e vértice de origem não nulos
-		 * Pós-condição: Nenhum
+		 * 
+		 * @Precondition  Grafo e vértice de origem não nulos
+		 * @Postcondition Nenhum
 		 */
 		public void inicializaBFS() {
 			
@@ -53,10 +54,11 @@ import data.Vertice;
 			ordemVertice.add(this.verticeOrigem.getNroVertice());
 		}
 		
-		/*
+		/**
 		 * Método que realiza a execução do algoritmo "Busca em Largura (BFS)"
-		 * Pré-condição: Vértice de origem válido e grafo não nulo
-		 * Pós-condição: Ordem de visita de vértices definida
+		 * 
+		 * @Precondition  Vértice de origem válido e grafo não nulo
+		 * @Postcondition Ordem de visita de vértices definida
 		 */
 		public void BFS_visit() {
 			
@@ -83,10 +85,11 @@ import data.Vertice;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão do resultado para o algoritmo BFS, conforme instruído na especificação do trabalho
-		 * Pré-condição: Execução de algoritmo já realizada
-		 * Pós-condiçao: Impressão de resultado no console
+		 * 
+		 * @Precondition  Execução de algoritmo já realizada
+		 * @Postcondition Impressão de resultado no console
 		 */
 		@Override
 		public void imprimeResultado() {
@@ -100,7 +103,7 @@ import data.Vertice;
 			System.out.println(str.toString());
 		}
 		
-		/*
+		/**
 		 * Método implementado pelo Runnable, responsável pela execução do algoritmo BFS
 		 */
 		@Override

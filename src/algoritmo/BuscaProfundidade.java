@@ -6,7 +6,7 @@ import data.Cor;
 import data.Grafo;
 import data.Vertice;
 
-/*
+/**
  * Classe que implementa o algoritmo "Busca em Profundidade (DFS)"
  * 
  * @author Eduardo Sakamoto
@@ -22,7 +22,7 @@ import data.Vertice;
 			super();
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização para o algoritmo 'Busca em Profundidade (DFS)'
 		 * 
 		 * @param grafo			   - Parâmetro referente ao grafo a ser processado
@@ -36,10 +36,11 @@ import data.Vertice;
 			this.verticeOrigem = this.getGrafo().getVerticeEspecifico(nroVerticeOrigem);
 		}
 		
-		/*
+		/**
 		 * Método que inicializa as estruturas essenciais para execução do algoritmo
-		 * Pré-condição: Vértice de origem pré-definido válido
-		 * Pós-condição: Nenhum
+		 * 
+		 * @Precondition  Vértice de origem pré-definido válido
+		 * @Postcondition Nenhuma
 		 */
 		public void inicializaDFS() {
 			
@@ -49,10 +50,11 @@ import data.Vertice;
 			ordemVertice.add(verticeOrigem.getNroVertice());
 		}
 				
-		/*
+		/**
 		 * Método que realiza a execução do algoritmo "Busca em Profundidade (DFS)"
-		 * Pré-condição: Vértice de origem válido
-		 * Pós-condição: Ordem de visita de vértices definida
+		 * 
+		 * @Precondition  Vértice de origem válido e grafo não nulo
+		 * @Postcondition Ordem de visita de vértices definida
 		 */
 		public void DFS() {
 			
@@ -64,12 +66,12 @@ import data.Vertice;
 			}
 		}
 	
-		/*
+		/**
 		 * Método que realiza a visita recursiva dos vértices, conforme o algoritmo DFS
-		 * Pré-condição: Vértice de parâmetro válido
-		 * Pós-condição: Nenhum
 		 * 
-		 * @param v - Parâmetro referente a um determinado vértice do grafo
+		 * @Precondition  Vértice de parâmetro válido
+		 * @Postcondition Nenhuma
+		 * @param 		  v - Parâmetro referente a um determinado vértice do grafo
 		 */
 		public void DFS_visit(Vertice v) {
 			
@@ -88,10 +90,11 @@ import data.Vertice;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão do resultado para o algoritmo DFS, conforme instruído na especificação do trabalho
-		 * Pré-condição: Execução de algoritmo já realizada
-		 * Pós-condiçao: Impressão de resultado no console
+		 * 
+		 * @Precondition  Execução de algoritmo já realizada
+		 * @Postcondition Impressão de resultado no console
 		 */
 		@Override
 		public void imprimeResultado() {
@@ -105,8 +108,8 @@ import data.Vertice;
 			System.out.println(str.toString());
 		}
 		
-		/*
-		 * Método implementado pelo RUnnable, responsável pela execução do algoritmo DFS
+		/**
+		 * Método implementado pelo Runnable, responsável pela execução do algoritmo DFS
 		 */
 		@Override
 		public void run() {

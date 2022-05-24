@@ -3,22 +3,11 @@ package util;
 import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.mutGraph;
 import static guru.nidi.graphviz.model.Factory.node;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-
-import data.Aresta;
-import data.Grafo;
-import data.Vertice;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Rank;
 import guru.nidi.graphviz.attribute.Rank.RankDir;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.engine.GraphvizEngine;
-import guru.nidi.graphviz.engine.V8JavascriptEngine;
 import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.Link;
 import guru.nidi.graphviz.model.LinkSource;
@@ -26,10 +15,20 @@ import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import guru.nidi.graphviz.model.Node;
 
-/*
- * Classe que realiza o desenho do grafo, considerando a documentação do Graphviz
- * URL: https://github.com/nidi3/graphviz-java
- * 		https://graphviz.org/
+import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import data.Aresta;
+import data.Grafo;
+import data.Vertice;
+
+/**
+ * Classe que realiza o desenho do grafo, considerando a documentação do Graphviz e a estrutura de grafo, 
+ * conforme especificação do trabalho
+ * 
+ * URL(s) de referência: https://github.com/nidi3/graphviz-java
+ * 						 https://graphviz.org/documentation/
  * 
  * @author Eduardo Sakamoto
  */
@@ -45,7 +44,7 @@ import guru.nidi.graphviz.model.Node;
 		
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização de estrutura de desenho de grafo
 		 * 
 		 * @param dadoGrafo - Parâmetro referente a estrutura de grafo
@@ -57,7 +56,7 @@ import guru.nidi.graphviz.model.Node;
 			graph = null;
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização de estrutura de desenho de grafo
 		 * 
 		 * @param dadoGrafo 		   - Parâmetro referente a estrutura de grafo
@@ -70,43 +69,27 @@ import guru.nidi.graphviz.model.Node;
 			graph = null;
 		}
 		
-		/*
+		/**
+		 * Método que realiza a impressão de título voltado para informações do desenho do grafo
 		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void tituloDesenhoGrafo() {
 			
+			System.out.println();
 			System.out.println("\t===================================");
 			System.out.println("\t| Informações de Desenho de Grafo |");
-			System.out.println("\t===================================\n");
+			System.out.println("\t===================================");
+			System.out.println();
 		}
-		
-		/*
-		 * Método que verifica se uma aresta é uma aresta de árvore geradora mínima
-		 * Pré-condição: Aresta não nula
-		 * Pós-condição: Resultado de comparação
-		 * 
-		 * @param  target  - Parâmetro referente a uma determinada aresta
-		 * @return boolean - Booleano referente a comparação se a aresta parâmetro é uma aresta geradora
-		 */
-		public boolean isArestaGeradora(Aresta target) {
-			
-			if(todoMST) {
-				for(Aresta a : arvoreGeradoraMinima) {
-					if(target.getVerticeOrigem() == a.getVerticeOrigem() && target.getVerticeDestino() == a.getVerticeDestino() ||
-						(!this.dadoGrafo.isOrientado() && 
-						(a.getVerticeOrigem() == target.getVerticeDestino() && a.getVerticeDestino() == target.getVerticeOrigem()))	)	
-						return true;
-				}
-			}
-			return false;
-		}
-			
-		/*
+				
+		/**
 		 * Método que realiza a geração de mapa inicial de Node, considerando a lista de vértices do grafo
-		 * Pré-condição: Grafo não nulo
-		 * Pós-condição: Mapa inicial de Nodes
 		 * 
-		 * @return nodeMap - Estrutura de mapa inicial de Nodes, considetrando todos os vértices do grafo 
+		 * @Precondition  Grafo não nulo
+		 * @Postcondition Mapa inicial de Nodes
+		 * @return 		  Estrutura de mapa inicial de Nodes, considetrando todos os vértices do grafo 
 		 */
 		public LinkedHashMap<Integer,ArrayList<Node>> generateInitialNodeMap(){
 			
@@ -125,12 +108,34 @@ import guru.nidi.graphviz.model.Node;
 			return nodeMap;
 		}
 		
-		/*
-		 * Método iterativo de montagem dos Nodes do grafo
-		 * Pré-condição: Estrutura de grafo, mapa inicial de Nodes e booleano para MST não nulos
-		 * Pós-condição: Configuração de Nodes do grafo
+		/**
+		 * Método que verifica se uma aresta é uma aresta de árvore geradora mínima
 		 * 
-		 * @return subgraph - LinkSource referente a um subgrafo composto pelos conjunto de Nodes (Vértice) e seus respectivos Links (Aresta)
+		 * @Precondition  Aresta não nula
+		 * @Postcondition Resultado de comparação
+		 * @param  		  target - Parâmetro referente a uma determinada aresta
+		 * @return 		  Booleano referente a comparação se a aresta parâmetro é uma aresta geradora
+		 */
+		public boolean isArestaGeradora(Aresta target) {
+			
+			if(todoMST) {
+				for(Aresta a : arvoreGeradoraMinima) {
+					// (u,v) == (u,v) ou Grafo Não Orientado e (u,v) == (v,u)
+					if(target.getVerticeOrigem() == a.getVerticeOrigem() && target.getVerticeDestino() == a.getVerticeDestino() ||
+						(!this.dadoGrafo.isOrientado() && 
+						(a.getVerticeOrigem() == target.getVerticeDestino() && a.getVerticeDestino() == target.getVerticeOrigem())))	
+						return true;
+				}
+			}
+			return false;
+		}
+		
+		/**
+		 * Método iterativo de montagem dos Nodes do grafo, com base nos dados do grafo processado anteriormente
+		 * 
+		 * @Precondition  Estrutura de grafo, mapa inicial de Nodes e booleano para MST não nulos
+		 * @Postcondition Configuração de Nodes do grafo
+		 * @return 		  LinkSource referente a um subgrafo composto pelos conjunto de Nodes (Vértice) e seus respectivos Links (Aresta)
 		 */
 		public LinkSource iterativeNodeMontage() {
 
@@ -159,8 +164,9 @@ import guru.nidi.graphviz.model.Node;
 						if(isArestaGeradora(new Aresta(start,end))) {
 							l = l.linkTo().add(Color.RED);
 						}
-						l = l.add(l.with("label", String.valueOf(this.dadoGrafo.getArestaEspecifica(this.dadoGrafo.getVerticeEspecifico(start), 
-									  this.dadoGrafo.getVerticeEspecifico(end))
+						l = l.add(l.with("label", 
+										 String.valueOf(this.dadoGrafo.getArestaEspecifica(this.dadoGrafo.getVerticeEspecifico(start), 
+												 										   this.dadoGrafo.getVerticeEspecifico(end))
 										.getPeso())));
 					}
 				}
@@ -171,20 +177,16 @@ import guru.nidi.graphviz.model.Node;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que define a estrutura do desenho de grafo
-		 * Pré-condição: Estrutura de grafo não nula
-		 * Pós-condição: Definição de Graph para realizar sua renderização
+		 * 
+		 * @Precondition  Estrutura de grafo não nula
+		 * @Postcondition Definição de Graph para realizar sua renderização
 		 */
 		public void drawGeneralGraph() {
 			
 			try {
-				try {
-					Graphviz.useEngine(Arrays.asList((GraphvizEngine) new V8JavascriptEngine()));		
-				}catch(Exception e) {
-					e.printStackTrace();
-					Graphviz.useDefaultEngines();
-				}
+				Graphviz.useDefaultEngines();
 				tituloDesenhoGrafo();
 				graph = graph(this.dadoGrafo.getNomeGrafo())
 						.graphAttr().with(Rank.dir(RankDir.LEFT_TO_RIGHT))
@@ -198,34 +200,35 @@ import guru.nidi.graphviz.model.Node;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que realiza a renderização de um grafo para arquivos dos formatos .txt e .png
-		 * Pré-condição: 'Graph' não nulo
-		 * Pós-condição: Geração de arquivos de grafo
 		 * 
-		 * @param g - Parâmetro referente a estrutura Graph, contendo as informações da estrutura Grafo (processada pelo algoritmo em grafo)
+		 * @Precondition  Abstração de Graph não nulo
+		 * @Postcondition Geração de arquivos de grafo
+		 * @param 		  g - Parâmetro referente a estrutura Graph, contendo as informações da estrutura Grafo (processada pelo algoritmo em grafo)
 		 */
 		public void renderGraphFile(Graph g) {
 			
 			try {
 				System.out.println("\n\tAguardando Renderização...\n");
-				File image, dot;	
+				File image, dot;
+				String newFileName = this.dadoGrafo.getNomeGrafo();
+				if(todoMST)		newFileName += " - Árvore Geradora";
 				image = Graphviz.fromGraph(g)
 								    .height(1000)
 								    .render(Format.PNG)
-								    .toFile(new File("image/" + this.dadoGrafo.getNomeGrafo() + ".png"));
+								    .toFile(new File("image/" + newFileName + ".png"));
 				dot = Graphviz.fromGraph(g)
 					    .render(Format.DOT)
-					    .toFile(new File("dot/" + this.dadoGrafo.getNomeGrafo() + ".txt"));
-				System.out.println("\tArquivo '" + image.getAbsolutePath() + "' Gerado com Sucesso!");
-				System.out.println("\tAs imagens de grafos estão no diretório ${project_basedir}/image");
+					    .toFile(new File("dot/" + newFileName + ".txt"));
 				
+				System.out.println("\tArquivo '" + image.getAbsolutePath() + "' Gerado com Sucesso!");
+				System.out.println("\tAs imagens de grafos estão no diretório ${project_dir}/image\n");
 				System.out.println("\tArquivo '" + dot.getAbsolutePath() + "' Gerado com Sucesso!");
-				System.out.println("\tOs arquivos txt dos DOTs dos grafos estão no diretório ${project_basedir}/dot");
+				System.out.println("\tOs arquivos txt dos DOTs dos grafos estão no diretório ${project_dir}/dot");
 			}catch(Exception e) {
 				// e.printStackTrace();
 				System.err.println("\tError ao Gerar arquivo");
 			}	
 		}
-		
 	}

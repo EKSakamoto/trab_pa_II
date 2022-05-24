@@ -14,11 +14,11 @@ import util.CarregarArquivo;
 import util.ErrorCodes;
 import util.GraphDrawer;
 
-/*
- * Clase inicializadora de programa, sendo também resposável pela interface do programa, que permite a execução 
+/**
+ * Classe inicializadora de programa, sendo também resposável pela interface do programa, que permite a execução 
  * de algoritmos em grafos, conforme a especificação do trabalho 2 da disciplina de Projeto e Análise de Algoritmos 
  * 
- * @author  Eduardo Sakamoto
+ * @author Eduardo Sakamoto
  */
 
 	public class ProgramMenu {
@@ -27,7 +27,7 @@ import util.GraphDrawer;
 		private AlgoritmoGrafo algoritmoGrafo;
 		private Grafo grafo;
 		
-		/*
+		/**
 		 * Construtor de inicialização do menu inicial do programa
 		 */
 		public ProgramMenu() {
@@ -36,23 +36,23 @@ import util.GraphDrawer;
 			algoritmoGrafo = null;
 		}
 
-		/*
+		/**
 		 * Método que pega o Scanner responsável pela leitura de dados
-		 * Pré-condição: Scanner não nulo
-		 * Pós-condição: Nenhuma
 		 * 
-		 * @return Scanner para leitura de dados
+		 * @Precondition  Scanner não nulo
+		 * @Postcondition Nenhuma
+		 * @return 		  Scanner para leitura de dados
 		 */
 		public Scanner scan() {
 			return scan;
 		}
 		
-		/*
+		/**
 		 * Método que realiza a leitura de um número inteiro no console
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Leitura Realizada
 		 * 
-		 * @return Inteiro referente ao número digitado no console
+		 * @Precondition  Nenhuma
+		 * @Postcondition Leitura Realizada
+		 * @return 		  Inteiro referente ao número digitado no console
 		 */
 		public int readInt() {
 			int n = scan().nextInt();
@@ -60,20 +60,22 @@ import util.GraphDrawer;
 			return n;
 		}
 	
-		/*
+		/**
 		 * Método que realiza a 'limpeza' do console
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public static void clear() {
 			
 			System.out.println(new String(new char[30]).replace("\0","\r\n"));
 		}
 		
-		/*
+		/**
 		 * Método que realiza a requisição de interação com o usuário
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Interação com usuário
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Interação com usuário
 		 */
 		public static void pressEnterToContinue(){ 
 		       
@@ -85,12 +87,12 @@ import util.GraphDrawer;
 		    }  
 		 }
 		
-		/*
+		/**
 		 * Método que realiza a impressão de uma mensagem, limpando o console em seguida
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
 		 * 
-		 * @param msg - Parâmetro a ser impresso no console (como mensagem)
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
+		 * @param		  msg - Parâmetro a ser impresso no console (como mensagem)
 		 */
 		public static void printMessageAndClear(String msg) {
 			
@@ -99,12 +101,12 @@ import util.GraphDrawer;
 			clear();
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão de uma mensagem (como erro), limpando o console em seguida
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
 		 * 
-		 * @param msg - Parâmetro a ser impresso no console (como erro)
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
+		 * @param 		  msg - Parâmetro a ser impresso no console (como erro)
 		 */
 		public static void printErrorAndClear(String msg) {
 			
@@ -113,40 +115,44 @@ import util.GraphDrawer;
 			clear();
 		}
 		
-		/*
+		/**
 		 * Método que reliza a impressão de label voltado para um comando no menu
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void selecionarComando() {
 			
 			System.out.print("\n\tComando: ");
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão de label voltado para um número de vértice de origem no menu
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void selecionarNumeroVertice() {
 			
 			System.out.print("\n\tNúmero de Vértice de Origem: ");
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão de label voltado para um caminho de arquivo no menu
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void digitarCaminhoArquivoGrafo() {
 			
 			System.out.print("\n\tCaminho do Arquivo: ");
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão dos últimos dados selecionados para processamento de grafo
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Possível impressão de tipo de algoritmo e/ou do grafo carregado no console
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Possível impressão de tipo de algoritmo e/ou do grafo carregado no console
 		 */
 		public void atribuicaoRecurso_AlgoritmoGrafo() {
 			
@@ -160,24 +166,26 @@ import util.GraphDrawer;
 			}
 		}
 		
-		
-		/*
+		/**
 		 * Método que realiza a impressão do título do menu principal
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void tituloMenuPrincipal() {
 			
+			System.out.println();
 			System.out.println("\t============================================");
 			System.out.println("\t| Trabalho II (PAA) - Algoritmos em Grafos |");
 			System.out.println("\t============================================");
 			System.out.println();
 		}
 		
-		/*
+		/**
 		 * Metodo que realiza a impressão do título do menu de algoritmo
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void tituloMenuAlgoritmo() {
 			
@@ -187,10 +195,11 @@ import util.GraphDrawer;
 			System.out.println();	
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão de opções de comando do menu principal
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void opcaoMenuPrincipal() {
 			
@@ -200,10 +209,11 @@ import util.GraphDrawer;
 			System.out.println("\t0 - Finalizar Programa");
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão de opções de comando do menu de algoritmo
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void opcaoMenuAlgoritmo() {
 			
@@ -215,10 +225,11 @@ import util.GraphDrawer;
 			System.out.println("\t0 - Voltar");
 		}
 		
-		/*
+		/**
 		 * Método que realiza as interações presentes no menu de algoritmo
-		 * Pré-condição: Grafo não nulo
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Grafo não nulo
+		 * @Postcondition Nenhuma
 		 */
 		public void menuAlgoritmo() {
 			
@@ -235,8 +246,8 @@ import util.GraphDrawer;
 			AlgoritmoGrafo g = null;
 			switch(comando) {
 				case 1:		try {
-					selecionarNumeroVertice();			
-					nroVertice = scan().nextInt();
+								selecionarNumeroVertice();			
+								nroVertice = scan().nextInt();
 								if(nroVertice >= grafo.getQtdVertice()) {
 									printErrorAndClear(ErrorCodes.INVALID_VERTEX_INPUT.getMessage());
 								}else {
@@ -313,10 +324,11 @@ import util.GraphDrawer;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que realiza as interações presentes no menu principal
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
+		 * 
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
 		 */
 		public void menuPrincipal() {
 			
@@ -367,7 +379,7 @@ import util.GraphDrawer;
 									break;
 								}
 								try {
-									clear();
+									System.out.println();
 									drawer.drawGeneralGraph();
 									printMessageAndClear("Grafo Desenhado com Sucesso!");
 								}catch(Exception e) {
@@ -384,21 +396,13 @@ import util.GraphDrawer;
 			}
 			menuPrincipal();	
 		}
-
-		/* TODO
-		 * Testar os algoritmos				-> DFS, BFS, Bellman-Ford, Kruskal e Prim (considerando grafo orientado e não-orientado)
-		 * Arrumar Prim						-> Aparentemente OK
-		 * Arrumar Interface				-> Verificar conforme testes de interface
-		 * Desenhar grafo 					-> OK
-		 * Documentação 					-> OK
-		 */
 		
-		/*
+		/**
 		 * Método main, responsável pela inicialização do programa principal
-		 * Pré-condição: Nenhuma
-		 * Pós-condição: Nenhuma
 		 * 
-		 * @param strgs - Parâmetro não utilizado
+		 * @Precondition  Nenhuma
+		 * @Postcondition Nenhuma
+		 * @param 		  strgs - Parâmetro não utilizado
 		 */
 		public static void main(String[] strgs) {
 			

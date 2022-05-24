@@ -6,6 +6,12 @@ import data.Aresta;
 import data.Grafo;
 import data.Vertice;
 
+/**
+ * Classe que implementa o algoritmo "Árvore Geradora Mínima - Prim"
+ * 
+ * @author Eduardo Sakamoto
+ */
+
 	public class Prim extends AlgoritmoGrafo{
 	
 		private Vertice verticeOrigem;
@@ -19,7 +25,7 @@ import data.Vertice;
 			super();
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização para o algoritmo 'Árvore Geradora Mínima - Prim'
 		 * 
 		 * @param grafo   - Parâmetro referente ao grafo a ser processado
@@ -35,28 +41,29 @@ import data.Vertice;
 			pesoTotal = 0;
 		}
 		
-		/*
+		/**
 		 * Método getter voltado para lista de arestas da árvore geradora mínima
 		 * 
-		 * @return arestaArvoreGeradora - Estrutura da lista de arestas da árvore geradora mínima
+		 * @return Estrutura da lista de arestas da árvore geradora mínima
 		 */
 		public ArrayList<Aresta> getArestaArvoreGeradora() {
 			return arestaArvoreGeradora;
 		}
 
-		/*
+		/**
 		 * Método setter referente a lista de arestas da árvore geradora mínima
 		 * 
-		 * @param arestaArvoreGeradora - Parâmetro refernte a lista de arestas da árvore geradora mínima
+		 * @param arestaArvoreGeradora - Parâmetro referente a lista de arestas da árvore geradora mínima
 		 */
 		public void setArestaArvoreGeradora(ArrayList<Aresta> arestaArvoreGeradora) {
 			this.arestaArvoreGeradora = arestaArvoreGeradora;
 		}
 		
-		/*
+		/**
 		 * Método de inicialização de estruturas essenciais para execução do algoritmo
-		 * Pré-condição: Grafo e vértice de origem não nulos
-		 * Pós-condição: Nenhum
+		 * 
+		 * @Precondition  Grafo e vértice de origem não nulos
+		 * @Postcondition Nenhuma
 		 */
 		public void inicializaOrigem() {
 			
@@ -71,13 +78,13 @@ import data.Vertice;
 			vertice_ausenteArvore.add(0,verticeOrigem);
 		}
 		
-		/*
+		/**
 		 * Método que extrai o vértice com o menor valor no vetor key
-		 * Pré-condição: Lista de vértices não nulos
-		 * Pós-condição: Nenhum
 		 * 
-		 * @param  list 	    - Parâmetro referente a lista de vértices (lista de vértices que não estão presentes na árvore geradora)
-		 * @return verticeMenor - Vértice do grafo referente ao menor valot do vetor key;
+		 * @Precondition  Lista de vértices não nulos
+		 * @Postcondition Nenhum 
+		 * @param  		  list - Parâmetro referente a lista de vértices (lista de vértices que não estão presentes na árvore geradora)
+		 * @return		  Vértice do grafo referente ao menor valor do vetor key
 		 */
 		public Vertice extraiVertice_MinimoKey(ArrayList<Vertice> list) {
 			
@@ -93,10 +100,11 @@ import data.Vertice;
 			return verticeMenor;
 		}
 		
-		/*
+		/**
 		 * Método que realiza a execução do algoritmo 'Árvore Geradora Mínima - Prim'
-		 * Pré-condição: Grafo e vértice de origem não nulos
-		 * Pós-condição: Lista de arestas de árvore geradora mínima definida
+		 * 
+		 * @Precondition  Grafo e vértice de origem não nulos
+		 * @Postcondition Lista de arestas de árvore geradora mínima definida
 		 */
 		public void arvoreGeradoraMinima_Prim() {
 			
@@ -117,10 +125,11 @@ import data.Vertice;
 			calculaPesoTotal();
 		}
 		
-		/*
+		/**
 		 * Método que define a lista de arestas da árvore geradora mínima, tendo como referência o vetor predecessor dos vértices
-		 * Pré-condição: Fila de Vértice Ausente na Árvore Vazia (algoritmo 'semi-executado')
-		 * Pós-condição: Definição de lista de arestas da árvore geradora mínima
+		 * 
+		 * @Precondition  Fila de Vértice Ausente na Árvore Vazia (algoritmo 'semi-executado')
+		 * @Postcondition Definição de lista de arestas da árvore geradora mínima
 		 */
 		public void defineArvoreGeradora() {
 			
@@ -132,10 +141,11 @@ import data.Vertice;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que define o valor do peso total das arestas da árvore geradora mínima
-		 * Pré-condição: Lista de arestas da árvore geradora não nulo
-		 * Pós-condição: Definição do valor de peso total
+		 * 
+		 * @Precondition  Lista de arestas da árvore geradora não nulo
+		 * @Postcondition Definição do valor de peso total
 		 */
 		public void calculaPesoTotal() {
 			
@@ -144,10 +154,11 @@ import data.Vertice;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que realiza a impressão do resultado para o algoritmo Prim, conforme instruído na especificação do trabalho
-		 * Pré-condição: Execução do algoritmo já realizada
-		 * Pós-condição: Impressão do resultado no console
+		 * 
+		 * @Precondition  Execução do algoritmo já realizada
+		 * @Postcondition Impressão do resultado no console
 		 */
 		@Override
 		public void imprimeResultado() {
@@ -164,7 +175,7 @@ import data.Vertice;
 			System.out.println(str.toString());
 		}
 		
-		/*
+		/**
 		 * Método implementado pelo Runnable, responsável pela execução do algoritmo Prim
 		 */
 		@Override

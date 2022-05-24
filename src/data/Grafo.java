@@ -3,10 +3,10 @@ package data;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import util.SorterAresta_VerticeOrigem;
-import util.SorterVertice_NroVertice;
+import sorter.SorterAresta_VerticeOrigem;
+import sorter.SorterVertice_NroVertice;
 
-/*
+/**
  * Classe que define a estrutura de um grafo
  * 
  * @author Eduardo Sakamoto
@@ -26,7 +26,7 @@ import util.SorterVertice_NroVertice;
 			
 		}
 	
-		/*
+		/**
 		 * Construtor de inicialização de um grafo
 		 * 
 		 * @param nomeGrafo   - Parâmetro de texto referente ao nome do grafo
@@ -46,16 +46,16 @@ import util.SorterVertice_NroVertice;
 			defineMapaIncidencia();
 		}
 			
-		/*
+		/**
 		 * Método getter voltado para nome do grafo
 		 * 
-		 * @return nomeGrafo - Texto referente ao nome do grafo
+		 * @return Texto referente ao nome do grafo
 		 */
 		public String getNomeGrafo() {
 			return nomeGrafo;
 		}
 
-		/*
+		/**
 		 * Método setter referente ao nome do grafo
 		 * 
 		 * @param nomeGrafo - Parâmetro referente ao nome do grafo
@@ -64,16 +64,16 @@ import util.SorterVertice_NroVertice;
 			this.nomeGrafo = nomeGrafo;
 		}
 
-		/*
+		/**
 		 * Método getter voltado para quantidade de vértices do grafo
 		 * 
-		 * @return qtdVertice - Inteiro referente a quantidade de vértices do grafo
+		 * @return Inteiro referente a quantidade de vértices do grafo
 		 */
 		public int getQtdVertice() {
 			return qtdVertice;
 		}
 
-		/*
+		/**
 		 * Método setter referente a quantidade de vértices do grafo
 		 * 
 		 * @param qtdVertice - Parâmetro referente a quantidade de vértices do grafo
@@ -82,16 +82,16 @@ import util.SorterVertice_NroVertice;
 			this.qtdVertice = qtdVertice;
 		}
 
-		/*
+		/**
 		 * Método getter referente a orientação do grafo
 		 * 
-		 * @return orientado - Boolean voltado para orientação do grafo
+		 * @return Booleano voltado para orientação do grafo
 		 */
 		public boolean isOrientado() {
 			return orientado;
 		}
 
-		/*
+		/**
 		 * Método setter referente a orientação do grafo
 		 * 
 		 * @param orientado - Parâmetro referente a orientação do grafo
@@ -100,16 +100,16 @@ import util.SorterVertice_NroVertice;
 			this.orientado = orientado;
 		}
 
-		/*
+		/**
 		 * Método getter voltado para lista de vértices do grafo
 		 * 
-		 * @return listaVertice - Lista de vértices do grafo
+		 * @return Lista de vértices do grafo
 		 */
 		public ArrayList<Vertice> getListaVertice() {
 			return listaVertice;
 		}
 
-		/*
+		/**
 		 * Método setter referente a lista de vértices do grafo
 		 * 
 		 * @param listaVertice - Parâmetro referente a lista de vértices do grafo
@@ -118,16 +118,16 @@ import util.SorterVertice_NroVertice;
 			this.listaVertice = listaVertice;
 		}
 
-		/*
+		/**
 		 * Método getter voltado para lista de vértices do grafo
 		 * 
-		 * @return listaAresta - Lista de arestas do grafo
+		 * @return Lista de arestas do grafo
 		 */
 		public ArrayList<Aresta> getListaAresta() {
 			return listaAresta;
 		}
 
-		/*
+		/**
 		 * Método setter referente a lista de arestas do grafo
 		 * 
 		 * @param listaAresta - Parâmetro referente a lista de arestas do grafo
@@ -136,16 +136,16 @@ import util.SorterVertice_NroVertice;
 			this.listaAresta = listaAresta;
 		}
 
-		/*
+		/**
 		 * Método getter voltado para mapa de adjacência do grafo (lista de vértices adjacentes de cada vértice)
 		 * 
-		 * @return mapaAdjacencia - Estrutura do mapa de adjacência
+		 * @return Estrutura auxiliar do mapa de adjacência do grafo
 		 */
 		public LinkedHashMap<Vertice, ArrayList<Vertice>> getMapaAdjacencia() {
 			return mapaAdjacencia;
 		}
 
-		/*
+		/**
 		 * Método setter referente ao mapa de adjacência do grafo (lista de vértices adjacentes para cada vértice)
 		 * 
 		 * @param mapaAdjacência - Parâmetro referente a estrutura do mapa de adjacência
@@ -154,16 +154,16 @@ import util.SorterVertice_NroVertice;
 			this.mapaAdjacencia = mapaAdjacencia;
 		}
 
-		/*
+		/**
 		 * Método getter voltado para o mapa de incidência do grafo (lista de arestas incidentes para cada vértice)
 		 * 
-		 *  @return mapaIncidencia - Estrutura do mapa de incidência
+		 * @return Estrutura auxiliar do mapa de incidência do grafo
 		 */
 		public LinkedHashMap<Vertice, ArrayList<Aresta>> getMapaIncidencia() {
 			return mapaIncidencia;
 		}
 
-		/*
+		/**
 		 * Método setter referente ao mapa de incidência do grafo (lista de arestas incidentes para cada vértice)
 		 * 
 		 * @param mapaIncidencia - Parâmetro referente a estrutura do mapa de incidência
@@ -172,10 +172,11 @@ import util.SorterVertice_NroVertice;
 			this.mapaIncidencia = mapaIncidencia;
 		}
 
-		/*
+		/**
 		 * Método que define a lista de vértices do grafo
-		 * Pré-condição: Lista de arestas do grafo não nulo
-		 * Pós-condição: Definição de lista ordenada de vértices
+		 * 
+		 * @Precondition  Lista de arestas do grafo não nulo
+		 * @Postcondition Definição de lista ordenada de vértices
 		 */
 		public void defineVertice() {
 			
@@ -185,7 +186,6 @@ import util.SorterVertice_NroVertice;
 				Vertice u, v;
 				u = new Vertice(a.getVerticeOrigem());
 				v = new Vertice(a.getVerticeDestino());
-				// Verificar confiabilidade de definição de arestas incidentes para grafos não orientados
 				u.defineArestaIncidente(listaAresta,orientado);
 				v.defineArestaIncidente(listaAresta,orientado);
 				if(!containsVertice(list,u))		list.add(u);
@@ -198,14 +198,14 @@ import util.SorterVertice_NroVertice;
 			this.listaVertice = list;
 		}
 		
-		/*
+		/**
 		 * Método que verifica a presença de um determinado vértice numa lista de vértices
-		 * Pré-condição: Vértice e lista de vértices não nulos
-		 * Pós-condição: Booleano de presença do vértice na lista
 		 * 
-		 * @param  list    - Parâmetro referente a uma lista de vértices
-		 * @param  target  - Parâmetro referente a um determinado vértice
-		 * @return boolean - Booleano voltado para existência de um determinado vértice na lista de vértices
+		 * @Precondition  Vértice e lista de vértices não nulos
+		 * @Postcondition Nenhuma
+		 * @param  		  list   - Parâmetro referente a uma lista de vértices
+		 * @param  		  target - Parâmetro referente a um determinado vértice
+		 * @return 		  Booleano voltado para existência de um determinado vértice na lista de vértices
 		 */
 		public boolean containsVertice(ArrayList<Vertice> list, Vertice target) {
 			
@@ -215,10 +215,11 @@ import util.SorterVertice_NroVertice;
 			return false;
 		}
 		
-		/*
+		/**
 		 * Método que define o mapa de vértices adjacentes para cada vértice do grafo
-		 * Pré-condição: Lista de vértices não nulo
-		 * Pós-condição: Definição de mapa de adjacência
+		 * 
+		 * @Precondition  Lista de vértices não nulo
+		 * @Postcondition Definição de mapa de adjacência
 		 */
 		public void defineMapaAdjacencia() {
 			
@@ -227,10 +228,11 @@ import util.SorterVertice_NroVertice;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que define o mapa de arestas incidentes para cada vértice do grafo
-		 * Pré-condição: Lista de vértices não nulo
-		 * Pós-condição: Definição de mapa de incidência
+		 * 
+		 * @Precondition  Lista de vértices não nulo
+		 * @Postcondition Definição de mapa de incidência
 		 */
 		public void defineMapaIncidencia() {
 			
@@ -239,13 +241,13 @@ import util.SorterVertice_NroVertice;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que busca por um determinado vértice no grafo
-		 * Pré-condição: Lista de vértices não nulo
-		 * Pós-condição: Resultado de busca de um determinado vértice
 		 * 
-		 * @param  nroVertice - Parâmetro referente ao número do vértice
-		 * @return v		  - Vértice do grafo, a partir do número do vértice
+		 * @Precondition  Lista de vértices não nulo
+		 * @Postcondition Resultado de busca de um determinado vértice
+		 * @param  		  nroVertice - Parâmetro referente ao número do vértice
+		 * @return 		  Vértice do grafo, a partir do número do vértice
 		 */
 		public Vertice getVerticeEspecifico(int nroVertice) {
 			
@@ -255,14 +257,14 @@ import util.SorterVertice_NroVertice;
 			return null;
 		}
 		
-		/*
+		/**
 		 * Método que busca por uma determinada aresta no grafo
-		 * Pré-condição: Vértice u, v e mapa de incidência não nulos
-		 * Pós-condição: Resultado de busca de uma determinada aresta
 		 * 
-		 * @param  u - Parâmetro referente ao vértice de origem
-		 * @param  v - Parâmetro referente ao vértice de destino
-		 * @return a - Determinada aresta do grafo, dado os vértices parametrizados
+		 * @Precondition  Vértice u, v e mapa de incidência não nulos
+		 * @Postcondition Resultado de busca de uma determinada aresta
+		 * @param  		  u - Parâmetro referente ao vértice de origem
+		 * @param  		  v - Parâmetro referente ao vértice de destino
+		 * @return 		  Determinada aresta do grafo, dado os vértices parametrizados
 		 */
 		public Aresta getArestaEspecifica(Vertice u, Vertice v) {
 			
@@ -275,12 +277,12 @@ import util.SorterVertice_NroVertice;
 			return null;
 		}
 		
-		/*
+		/**
 		 * Método auxiliar que realiza a impressão das informações do grafo
-		 * Pré-condição: Grafo não nulo
-		 * Pós-condição: Impressão de informações do grafo
 		 * 
-		 * @return String - Texto referente às informações do grafo
+		 * @Precondition  Grafo não nulo
+		 * @Postcondition Impressão de informações do grafo
+		 * @return 		  Texto referente às informações do grafo
 		 */
 		public String getGrafoInfo() {
 			

@@ -2,10 +2,10 @@ package data;
 
 import java.util.ArrayList;
 
-import util.SorterAresta_VerticeOrigem;
-import util.SorterVertice_NroVertice;
+import sorter.SorterAresta_VerticeOrigem;
+import sorter.SorterVertice_NroVertice;
 
-/*
+/**
  * Classe que define a estrutura de um vértice
  * 
  * @author Eduardo Sakamoto
@@ -16,16 +16,16 @@ import util.SorterVertice_NroVertice;
 		private int nroVertice;
 		private ArrayList<Aresta> listaArestaIncidente;
 		
-		/*
-		 * Construtor de incialização de um vértice
+		/**
+		 * Construtor de inicialização de um vértice
 		 */
 		public Vertice() {
 			this.nroVertice = -1;
 			listaArestaIncidente = null;
 		}
 		
-		/*
-		 * Construtor de incialização de um vértice
+		/**
+		 * Construtor de inicialização de um vértice
 		 * 
 		 * @param nroVertice - Parâmetro referente ao número do vértice
 		 */
@@ -34,16 +34,16 @@ import util.SorterVertice_NroVertice;
 			this.listaArestaIncidente = new ArrayList<>();
 		}
 		
-		/*
+		/**
 		 * Método getter voltado para o número do vértice
 		 * 
-		 * @return nroVertice - Inteiro referente ao número do vértice
+		 * @return Inteiro referente ao número do vértice
 		 */
 		public int getNroVertice() {
 			return nroVertice;
 		}
 		
-		/*
+		/**
 		 * Método setter referente ao número do vértice
 		 * 
 		 * @param nroVertice - Parâmetro referente ao número do vértice
@@ -52,16 +52,16 @@ import util.SorterVertice_NroVertice;
 			this.nroVertice = nroVertice;
 		}
 
-		/*
+		/**
 		 * Método getter voltado para lista de arestas incidentes de um determinado vértice
 		 * 
-		 * @return listaArestaIncidente - Lista de arestas incidentes de um determinado vértice
+		 * @return Lista de arestas incidentes de um determinado vértice
 		 */
 		public ArrayList<Aresta> getListaArestaIncidente() {
 			return listaArestaIncidente;
 		}
 
-		/*
+		/**
 		 * Método setter referente a lista de arestas incidentes de um determaindo vértice
 		 * 
 		 * @param listaArestaIncidente - Parâmetro referente a lista de arestas incidentes de um determinado vértice
@@ -70,13 +70,13 @@ import util.SorterVertice_NroVertice;
 			this.listaArestaIncidente = listaArestaIncidente;
 		}
 
-		/*
+		/**
 		 * Método de definição de arestas incidentes para um determinado vértice
-		 * Pré-condição: Lista de arestas não nulo e orientação de grafo definida
-		 * Pós-condição: Definição de arestas incidentes
 		 * 
-		 * @param listaAresta	 - Parâmetro referente a lista de arestas do grafo
-		 * @param grafoOrientado - Parâmetro referente a orientação do grafo
+		 * @Precondition  Lista de arestas não nulo e orientação de grafo definida
+		 * @Postcondition Definição de arestas incidentes
+		 * @param 		  listaAresta    - Parâmetro referente a lista de arestas do grafo
+		 * @param 		  grafoOrientado - Parâmetro referente a orientação do grafo
 		 */
 		public void defineArestaIncidente(ArrayList<Aresta> listaAresta, boolean grafoOrientado) {
 			
@@ -100,13 +100,13 @@ import util.SorterVertice_NroVertice;
 			}
 		}
 		
-		/*
+		/**
 		 * Método de definição de vértices adjacentes para um determinado vértice
-		 * Pré-condição: Lista de vértices e lista de arestas incidentes nao nulos
-		 * Pós-condição: Definição de vértices adjacentes
 		 * 
-		 * @param  listaTotal - Parâmetro referente a lista de vértices do grafo
-		 * @return list       - Lista de vértices adjacentes 
+		 * @Precondition  Lista de vértices e lista de arestas incidentes nao nulos
+		 * @Postcondition Definição de vértices adjacentes
+		 * @param  		  listaTotal - Parâmetro referente a lista de vértices do grafo
+		 * @return 		  Lista de vértices adjacentes 
 		 */
 		public ArrayList<Vertice> defineVerticeAdjacente(ArrayList<Vertice> listaTotal){
 			
@@ -125,11 +125,5 @@ import util.SorterVertice_NroVertice;
 //				e.printStackTrace();
 				return null;
 			}
-		}
-		
-		@Override
-		public String toString() {
-			// TODO Auto-generated method stub
-			return "Vertice[nroVertice = " + this.nroVertice + "]";
 		}
 	}

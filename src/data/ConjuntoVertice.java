@@ -2,7 +2,7 @@ package data;
 
 import java.util.ArrayList;
 
-/*
+/**
  * Classe que define a estrutura do conjunto de vértice(s), voltado para auxiliar na implementação do algoritmo Kruskal
  * 
  * @author Eduardo Sakamoto
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 			super();
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização de um conjunto de vértice
 		 * 
 		 * @param v - Parâmetro referente a um único vértice do grafo
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 			this.add(v);
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização de um conjunto de vértice
 		 * 
 		 * @param list - Parâmetro refernete a uma lista de vértices presentes no grafo
@@ -34,12 +34,12 @@ import java.util.ArrayList;
 			super(list);
 		}
 			
-		/*
+		/**
 		 * Método que realiza a operação de união entre dois conjuntos de vértices
-		 * Pré-condição: Conjunto de vértice(s) não nulo
-		 * Pós-condição: União resultante dos conjuntos
 		 * 
-		 * @param conj - Parâmetro referente a um conjunto de vértices
+		 * @Precondition  Conjunto de vértice(s) não nulo
+		 * @Postcondition União resultante dos conjuntos
+		 * @param 		  conj - Parâmetro referente a um conjunto de vértices
 		 */
 		public void union(ConjuntoVertice conj) {
 			
@@ -48,13 +48,13 @@ import java.util.ArrayList;
 			}
 		}
 		
-		/*
+		/**
 		 * Método que verifica a distinção entre dois conjuntos de vértices
-		 * Pré-condição: Conjunto de vértice(s) não nulo
-		 * Pós-condição: Resultado de distinção
 		 * 
-		 * @param  conj    - Parâmetro referente a um conjunto de vértices
-		 * @return boolean - Boolean voltado para resultado de distinção de dois conjuntos de vértices
+		 * @Precondition  Conjunto de vértice(s) não nulo
+		 * @Postcondition Resultado de distinção
+		 * @param  		  conj - Parâmetro referente a um conjunto de vértices
+		 * @return        Boolean voltado para resultado de distinção de dois conjuntos de vértices
 		 */
 		public boolean distintoConjuntoVertice(ConjuntoVertice conj) {
 			
@@ -64,6 +64,5 @@ import java.util.ArrayList;
 				}
 			}
 			return true;
-		}
-		
+		}	
 	}

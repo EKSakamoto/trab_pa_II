@@ -1,6 +1,6 @@
 package data;
 
-/*
+/**
  * Classe que define a estrutura de uma aresta
  * 
  * @author Eduardo Sakamoto
@@ -10,13 +10,13 @@ package data;
 
 		private int verticeOrigem;
 		private int verticeDestino;
-		private int peso;	// Número inteiro ou número real
+		private int peso;	
 		
 		public Aresta() {
 			
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização de uma aresta
 		 * 
 		 * @param verticeOrigem  - Parâmetro referente ao número do vértice de origem
@@ -27,7 +27,7 @@ package data;
 			this.verticeDestino = verticeDestino;
 		}
 		
-		/*
+		/**
 		 * Construtor de inicialização de uma aresta
 		 * 
 		 * @param verticeOrigem  - Parâmetro referente ao número do vértice de origem
@@ -40,16 +40,16 @@ package data;
 			this.peso = peso;
 		}
 		
-		/*
+		/**
 		 * Método getter voltado para o número do vértice de origem
 		 * 
-		 * @return verticeOrigem - Inteiro voltado para o número do vértice de origem
+		 * @return Inteiro voltado para o número do vértice de origem
 		 */
 		public int getVerticeOrigem() {
 			return verticeOrigem;
 		}
 		
-		/*
+		/**
 		 * Método setter voltado ao número do vértice de origem
 		 * 
 		 * @param verticeOrigem - Parâmetro referente ao número do vértice de origem 
@@ -58,16 +58,16 @@ package data;
 			this.verticeOrigem = verticeOrigem;
 		}
 
-		/*
+		/**
 		 * Método getter voltado para o número do vértice de destino
 		 * 
-		 * @return verticeDestino - Inteiro voltado para o número do vértice de destino
+		 * @return Inteiro voltado para o número do vértice de destino
 		 */
 		public int getVerticeDestino() {
 			return verticeDestino;
 		}
 
-		/*
+		/**
 		 * Método setter voltado para o número do vértice de destino
 		 * 
 		 * @param verticeDestino - Parâmetro referente ao número do vértice de destino
@@ -76,16 +76,16 @@ package data;
 			this.verticeDestino = verticeDestino;
 		}
 
-		/*
+		/**
 		 * Método getter voltado para o peso da aresta
 		 * 
-		 * @return peso - Inteiro voltado para o peso da aresta
+		 * @return Inteiro voltado para o peso da aresta
 		 */
 		public int getPeso() {
 			return peso;
 		}
 
-		/*
+		/**
 		 * Método setter voltado para o peso da aresta
 		 *
 		 * @param peso - Parâmetro referente ao peso da aresta
@@ -94,13 +94,13 @@ package data;
 			this.peso = peso;
 		}
 
-		/*
-		 * Método de igualdade com uma aresta
-		 * Pré-condição: Aresta nao nula
-		 * Pós-condição: Resultado de comparação
+		/**
+		 * Método de igualdade entre duas arestas
 		 * 
-		 * @param  a 	   - Parâmetro referente a uma determinada aresta
-		 * @return boolean - Booleano referente ao resultado de comparação entre duas arestas
+		 * @Precondition  Aresta não nula
+		 * @Postcondition Resultado de comparação
+		 * @param  		  a - Parâmetro referente a uma determinada aresta
+		 * @return 		  Booleano referente ao resultado de comparação entre duas arestas
 		 */
 		public boolean equals(Aresta a) {
 			return (this.verticeOrigem == a.getVerticeOrigem() &&
@@ -108,12 +108,12 @@ package data;
 					this.peso == a.getPeso());
 		}
 
-		/*
+		/**
 		 * Método auxiliar para representação de aresta no padrão (u,v)
-		 * Pré-condição: Nenhum
-		 * Pós-condição: Representação (u,v)
 		 * 
-		 * @return String - Texto voltado para representação da aresta 
+		 * @Precondition  Números de vértices (origem e destino) não nulos
+		 * @Postcondition Representação (u,v)
+		 * @return 		  Texto voltado para representação da aresta 
 		 */
 		public String uvRepresentation() {
 			
@@ -121,11 +121,4 @@ package data;
 					   + this.getVerticeDestino() +
 					")";
 		}
-		
-		@Override
-		public String toString() {
-			return "Aresta [verticeOrigem=" + verticeOrigem + ", verticeDestino=" + verticeDestino + ", peso=" + peso
-					+ "]";
-		}
-	
 	}
